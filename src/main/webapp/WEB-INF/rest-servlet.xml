@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.0.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+    <context:component-scan base-package="com.gemt.granite"  />
+        
+    <mvc:annotation-driven />
+	      
+    <bean id="partDao" class="com.gemt.granite.dao.erp.PartDao" />
+	<bean id="partService" class="com.gemt.granite.service.erp.PartService" />
+	
+    <bean id="workCenterDao" class="com.gemt.granite.dao.mfg.WorkCenterDao" />
+	<bean id="workCenterService" class="com.gemt.granite.service.mfg.WorkCenterService" />
+	
+    <bean id="materialDao" class="com.gemt.granite.dao.erp.MaterialDao" />
+	<bean id="materialService" class="com.gemt.granite.service.erp.MaterialService" />
+    		   
+   	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.progress.sql.jdbc.JdbcProgressDriver" />
+		<property name="url" value="jdbc:jdbcprogress:T:192.168.74.20:6100:mfgsys" />
+		<property name="username" value="sysprogress" />
+		<property name="password" value="aprilfools" />
+	</bean> 		   
+   
+    <!-- <bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
+		<property name="driverClassName" value="com.progress.sql.jdbc.JdbcProgressDriver" />
+		<property name="url" value="jdbc:jdbcprogress:T:192.168.74.20:6100:mfgsys" />
+		<property name="username" value="sysprogress" />
+		<property name="password" value="aprilfools" />
+		<property name="initialSize" value="5" />
+    	<property name="maxActive" value="10" />
+    	<property name="maxIdle" value="5" />
+    	<property name="minIdle" value="2" />
+    	<property name="removeAbandoned" value="true" />
+    	<property name="removeAbandonedTimeout" value="60" />
+	</bean> -->
+</beans>
