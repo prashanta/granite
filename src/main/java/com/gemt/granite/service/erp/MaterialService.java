@@ -30,4 +30,8 @@ public class MaterialService {
 		PartRevBean partRev = partDao.getApprovedRevision(partNum);		
 		return materialDao.getMaterialDetails(partNum, partRev.getRevisionNum());		
 	}
+
+	public List<MaterialDetailBean> getMaterialDetails(String partNum, String revNum) throws Exception {
+		return materialDao.getMaterialDetails(partNum, revNum);		
+	}
 }

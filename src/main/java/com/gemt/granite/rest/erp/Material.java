@@ -37,9 +37,14 @@ public class Material {
 		return materialService.getMaterials(partNum);
 	}
 	
-	@RequestMapping(value="/detail/{partnum}", produces=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/detail/{partnum:.+}", produces=MediaType.APPLICATION_JSON_VALUE)
 	public List<MaterialDetailBean> getMaterailDetails(@PathVariable(value = "partnum") String partNum) throws Exception {
 		return materialService.getMaterialDetails(partNum);
+	}
+	
+	@RequestMapping(value="/detail/{partnum:.+}/{revnum}", produces=MediaType.APPLICATION_JSON_VALUE)
+	public List<MaterialDetailBean> getMaterailDetails(@PathVariable(value = "partnum") String partNum, @PathVariable(value = "revnum") String revNum) throws Exception {
+		return materialService.getMaterialDetails(partNum, revNum);
 	}	
 	
 	@RequestMapping(value="**", produces=MediaType.APPLICATION_JSON_VALUE)
