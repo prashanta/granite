@@ -3,6 +3,9 @@ package com.gemt.granite.service.erp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.gemt.granite.bean.erp.MaterialBean;
 import com.gemt.granite.bean.erp.MaterialDetailBean;
@@ -16,11 +19,11 @@ public class MaterialService {
 	
 	@Autowired
 	PartDao partDao;
-	
+		
 	public List<MaterialBean> getMaterials(String partNum, String revNum) throws Exception{
 		return materialDao.getMaterials(partNum, revNum);
 	}
-	
+		
 	public List<MaterialBean> getMaterials(String partNum) throws Exception{
 		PartRevBean partRev = partDao.getApprovedRevision(partNum);		
 		return materialDao.getMaterials(partNum, partRev.getRevisionNum());

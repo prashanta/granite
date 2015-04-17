@@ -47,6 +47,11 @@ public class Part {
 		return partService.getPartRevision(partNum);
 	}
 	
+	@RequestMapping(value="/approvedrev/{partnum:.+}", produces=MediaType.APPLICATION_JSON_VALUE)
+	public PartRevBean getPartApprovedRevision(@PathVariable(value = "partnum") String partNum) throws Exception {
+		return partService.getPartApprovedRevision(partNum);
+	}
+	
 	@RequestMapping(value="/bin/{partnum:.+}", produces=MediaType.APPLICATION_JSON_VALUE)
 	public List<PartBinBean> getPartBin(@PathVariable(value = "partnum") String partNum) throws Exception {
 		return partService.getPartBin(partNum);

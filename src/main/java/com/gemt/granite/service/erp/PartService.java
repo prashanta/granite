@@ -35,6 +35,10 @@ public class PartService {
 		return partDao.getPartRevisions(partNum);
 	}
 	
+	public PartRevBean getPartApprovedRevision(String partNum) throws Exception {
+		return partDao.getApprovedRevision(partNum);
+	}
+	
 	public List<PartBinBean> getPartBin(String partNum) throws Exception {
 		return partDao.getPartBin(partNum);
 	}

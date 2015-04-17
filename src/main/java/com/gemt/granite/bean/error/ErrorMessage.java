@@ -2,7 +2,7 @@ package com.gemt.granite.bean.error;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.gemt.granite.exception.RestException;
+import com.gemt.granite.exception.GraniteRestException;
 
 @XmlRootElement
 public class ErrorMessage {
@@ -23,7 +23,7 @@ public class ErrorMessage {
 		this.message = message;
 		this.displayMessage = displayMessage;
 	}
-	public ErrorMessage(RestException ex) {
+	public ErrorMessage(GraniteRestException ex) {
 		super();
 		this.code = ex.getErrorCode();
 		this.message = ex.getMessage();

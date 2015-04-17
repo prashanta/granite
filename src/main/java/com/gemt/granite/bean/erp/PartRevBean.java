@@ -1,11 +1,8 @@
 package com.gemt.granite.bean.erp;
 
 import java.util.Date;
-
 import javax.xml.bind.annotation.XmlRootElement;
-
 import org.codehaus.jackson.map.annotate.JsonSerialize;
-
 import com.gemt.granite.utility.JsonDateSerializer;
 
 @XmlRootElement

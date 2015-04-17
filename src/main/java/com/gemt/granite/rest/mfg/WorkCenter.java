@@ -26,15 +26,15 @@ public class WorkCenter {
 	@Autowired  
 	WorkCenterService workCenterService;
 
-	@RequestMapping(value="/info/{workcentercode}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public WorkCenterBean getWorkCenter(@PathVariable(value = "workcentercode") String workCenterCode) throws Exception {
-		return workCenterService.getWorkCenter(workCenterCode);
-	}		
-	
 	@RequestMapping(produces=MediaType.APPLICATION_JSON_VALUE)
 	public List<WorkCenterBean> getWorkCenters() throws Exception {
 		return workCenterService.getWorkCenters();
 	}
+	
+	@RequestMapping(value="/info/{workcentercode}", produces=MediaType.APPLICATION_JSON_VALUE)
+	public WorkCenterBean getWorkCenter(@PathVariable(value = "workcentercode") String workCenterCode) throws Exception {
+		return workCenterService.getWorkCenter(workCenterCode);
+	}		
 	
 	@RequestMapping(value="*", produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(value = HttpStatus.NOT_FOUND)

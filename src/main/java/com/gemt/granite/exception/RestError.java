@@ -14,7 +14,7 @@ public enum RestError {
 	
 	PART_BIN_NOT_FOUND(104, "Part bin not found"),
 	
-	PART_PLANT_INFO_NOT_FOUND(104, "Part plant information not found"),
+	PART_PLANT_INFO_NOT_FOUND(105, "Part plant information not found"),
 	
 	MATERIALS_NOT_FOUND(201, "Child parts not found"),
 	
@@ -22,7 +22,13 @@ public enum RestError {
 	
 	WORK_CENTERS_NOT_FOUND(502, "Work Centers not found"),
 	
-	APP_SERVER_ERROR(-1, "Some error occured in application server");
+	JOB_OPS_NOT_FOUND(601, "Job opeartions not found"),
+	
+	ACTIVE_OPS_NOT_FOUND(602, "Active opeartions not found"),
+	
+	APP_SERVER_ERROR(-1, "Some error occured at application server"),
+	
+	BAD_SQL_ERROR(-2, "There is a bug in SQL statement. Find and burn that bug!!");
 	
 	private final int code;
 

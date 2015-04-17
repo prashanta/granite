@@ -1,5 +1,5 @@
 <html>
 <body>
-<h2>GRANITE is alive!</h2>
+<h2>GRANITE lives!</h2>
 </body>
 </html>

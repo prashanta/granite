@@ -1,6 +1,9 @@
 package com.gemt.granite.dao.mfg;
 
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -18,7 +21,7 @@ import org.springframework.transaction.annotation.Isolation;
 
 import com.gemt.granite.bean.mfg.WorkCenterBean;
 import com.gemt.granite.exception.RestError;
-import com.gemt.granite.exception.RestException;
+import com.gemt.granite.exception.GraniteRestException;
 
 /**
  * @author Prashanta.s
@@ -31,7 +34,7 @@ public class WorkCenterDao {
 	private JdbcTemplate jdbcTemplate;
 	 
 	@Autowired
-    public void setDataSource(DataSource dataSource) {
+    public void setDataSource(DataSource dataSource){
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 	
@@ -63,15 +66,15 @@ public class WorkCenterDao {
 			RowMapper<WorkCenterBean> rm = BeanPropertyRowMapper.newInstance(WorkCenterBean.class);
 			List<WorkCenterBean> workCenters = jdbcTemplate.query(sql, rm);
 			if(workCenters.isEmpty())
-				throw new RestException(RestError.WORK_CENTERS_NOT_FOUND);
+				throw new GraniteRestException(RestError.WORK_CENTERS_NOT_FOUND);
 			return workCenters;
 		}		
 		catch(CannotGetJdbcConnectionException ex){
 			ex.printStackTrace();
-			throw new RestException(RestError.NO_DATABASE_CONNECTION, ex.getMessage());
+			throw new GraniteRestException(RestError.NO_DATABASE_CONNECTION, ex.getMessage());
 		}catch(Exception ex){
 			ex.printStackTrace();
-			throw new RestException(RestError.APP_SERVER_ERROR, null);
+			throw new GraniteRestException(RestError.APP_SERVER_ERROR, ex);
 		}
 	}
 	
@@ -94,14 +97,49 @@ public class WorkCenterDao {
 		}		
 		catch(EmptyResultDataAccessException ex){
 			ex.printStackTrace();
-			throw new RestException(RestError.WORK_CENTER_NONEXISTENT, ex.getMessage());
+			throw new GraniteRestException(RestError.WORK_CENTER_NONEXISTENT, ex);
 		}
 		catch(CannotGetJdbcConnectionException ex){
 			ex.printStackTrace();
-			throw new RestException(RestError.NO_DATABASE_CONNECTION, ex.getMessage());
+			throw new GraniteRestException(RestError.NO_DATABASE_CONNECTION, ex);
 		}catch(Exception ex){
 			ex.printStackTrace();
-			throw new RestException(RestError.APP_SERVER_ERROR, null);
+			throw new GraniteRestException(RestError.APP_SERVER_ERROR, ex);
+		}
+	}
+	
+	/**
+	 * Get next work center for given Job and Operation Sequence
+	 * @param jobNum
+	 * @param operSeq
+	 * @return
+	 * @throws GraniteRestException
+	 */
+	public String getNextWorkCell(String jobNum, int operSeq) throws GraniteRestException{
+		String nextWC = null;
+		String sql =	
+						"SELECT " +
+						"JobOper.WCCode as wcCode " + 
+						"FROM pub.JobOper " + 
+						"WHERE JobOper.JobNum = ? AND JobOper.OprSeq > ? " +
+						"ORDER BY JobOper.OprSeq";
+		try{
+			Connection con = jdbcTemplate.getDataSource().getConnection();
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, jobNum);
+			ps.setInt(2, operSeq);
+			ResultSet rs = ps.executeQuery();			
+			if(rs.next()){
+				nextWC = rs.getString(1);
+			}
+			rs.close();			
+			con.close();
+			return nextWC;
+		}		
+		catch(Exception ex){
+			ex.printStackTrace();
+			log.error(ex.getMessage());
+			throw new GraniteRestException(RestError.APP_SERVER_ERROR, ex);
 		}
 	}
 }

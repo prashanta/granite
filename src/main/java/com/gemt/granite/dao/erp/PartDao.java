@@ -22,9 +22,8 @@ import com.gemt.granite.bean.erp.PartBinBean;
 import com.gemt.granite.bean.erp.PartPlantBean;
 import com.gemt.granite.bean.erp.PartRevBean;
 import com.gemt.granite.exception.RestError;
-import com.gemt.granite.exception.RestException;
+import com.gemt.granite.exception.GraniteRestException;
 
-@Transactional(isolation=Isolation.READ_UNCOMMITTED)
 @Repository
 public class PartDao {
 		
@@ -64,14 +63,14 @@ public class PartDao {
 		}
 		catch(EmptyResultDataAccessException ex){
 			ex.printStackTrace();
-			throw new RestException(RestError.PART_NONEXISTENT);
+			throw new GraniteRestException(RestError.PART_NONEXISTENT, ex);
 		}
 		catch(CannotGetJdbcConnectionException ex){
 			ex.printStackTrace();
-			throw new RestException(RestError.NO_DATABASE_CONNECTION, ex.getMessage());
+			throw new GraniteRestException(RestError.NO_DATABASE_CONNECTION, ex);
 		}catch(Exception ex){
 			ex.printStackTrace();
-			throw new RestException(RestError.APP_SERVER_ERROR, null);
+			throw new GraniteRestException(RestError.APP_SERVER_ERROR, ex);
 		}
 	}
 	
@@ -91,20 +90,20 @@ public class PartDao {
 			RowMapper<PartBean> rm = BeanPropertyRowMapper.newInstance(PartBean.class);
 			List<PartBean> parts = jdbcTemplate.query(sql, new Object[]{"%"+partNum+"%"}, rm);
 			if(parts.isEmpty())
-				throw new RestException(RestError.PARTS_NOT_FOUND);
+				throw new GraniteRestException(RestError.PARTS_NOT_FOUND);
 			return parts;
 		}		
 		catch(CannotGetJdbcConnectionException ex){
 			ex.printStackTrace();
-			throw new RestException(RestError.NO_DATABASE_CONNECTION, ex.getMessage());
+			throw new GraniteRestException(RestError.NO_DATABASE_CONNECTION, ex.getMessage());
 		}
-		catch(RestException ex){
+		catch(GraniteRestException ex){
 			ex.printStackTrace();
 			throw ex;
 		}
 		catch(Exception ex){
 			ex.printStackTrace();
-			throw new RestException(RestError.APP_SERVER_ERROR, ex.getMessage());
+			throw new GraniteRestException(RestError.APP_SERVER_ERROR, ex.getMessage());
 		}
 	}
 	
@@ -123,20 +122,20 @@ public class PartDao {
 			RowMapper<PartBean> rm = BeanPropertyRowMapper.newInstance(PartBean.class);
 			List<PartBean> parts = jdbcTemplate.query(sql, new Object[]{"%"+description+"%"}, rm);
 			if(parts.isEmpty())
-				throw new RestException(RestError.PARTS_NOT_FOUND);
+				throw new GraniteRestException(RestError.PARTS_NOT_FOUND);
 			return parts;
 		}		
 		catch(CannotGetJdbcConnectionException ex){
 			ex.printStackTrace();
-			throw new RestException(RestError.NO_DATABASE_CONNECTION, ex.getMessage());
+			throw new GraniteRestException(RestError.NO_DATABASE_CONNECTION, ex.getMessage());
 		}
-		catch(RestException ex){
+		catch(GraniteRestException ex){
 			ex.printStackTrace();
 			throw ex;
 		}
 		catch(Exception ex){
 			ex.printStackTrace();
-			throw new RestException(RestError.APP_SERVER_ERROR, ex.getMessage());
+			throw new GraniteRestException(RestError.APP_SERVER_ERROR, ex.getMessage());
 		}
 	}
 	
@@ -156,20 +155,20 @@ public class PartDao {
 			RowMapper<PartBean> rm = BeanPropertyRowMapper.newInstance(PartBean.class);
 			List<PartBean> parts = jdbcTemplate.query(sql, new Object[]{partClass}, rm);
 			if(parts.isEmpty())
-				throw new RestException(RestError.PARTS_NOT_FOUND);
+				throw new GraniteRestException(RestError.PARTS_NOT_FOUND);
 			return parts;
 		}		
 		catch(CannotGetJdbcConnectionException ex){
 			ex.printStackTrace();
-			throw new RestException(RestError.NO_DATABASE_CONNECTION, ex.getMessage());
+			throw new GraniteRestException(RestError.NO_DATABASE_CONNECTION, ex.getMessage());
 		}
-		catch(RestException ex){
+		catch(GraniteRestException ex){
 			ex.printStackTrace();
 			throw ex;
 		}
 		catch(Exception ex){
 			ex.printStackTrace();
-			throw new RestException(RestError.APP_SERVER_ERROR, ex.getMessage());
+			throw new GraniteRestException(RestError.APP_SERVER_ERROR, ex.getMessage());
 		}
 	}
 	
@@ -193,20 +192,20 @@ public class PartDao {
 			RowMapper<PartRevBean> rm = BeanPropertyRowMapper.newInstance(PartRevBean.class);
 			List<PartRevBean> parts = jdbcTemplate.query(sql, new Object[]{partNum}, rm);
 			if(parts.isEmpty())
-				throw new RestException(RestError.PARTS_NOT_FOUND);				
+				throw new GraniteRestException(RestError.PARTS_NOT_FOUND);				
 			return parts;
 		}
 		catch(CannotGetJdbcConnectionException ex){
 			ex.printStackTrace();
-			throw new RestException(RestError.NO_DATABASE_CONNECTION, ex.getMessage());
+			throw new GraniteRestException(RestError.NO_DATABASE_CONNECTION, ex.getMessage());
 		}
-		catch(RestException ex){
+		catch(GraniteRestException ex){
 			ex.printStackTrace();
 			throw ex;
 		}
 		catch(Exception ex){
 			ex.printStackTrace();
-			throw new RestException(RestError.APP_SERVER_ERROR, ex.getMessage());
+			throw new GraniteRestException(RestError.APP_SERVER_ERROR, ex.getMessage());
 		}
 	}
 	
@@ -216,6 +215,7 @@ public class PartDao {
 	 * @param partNum
 	 * @return
 	 * @throws Exception
+	 * 
 	 */
 	public PartRevBean getApprovedRevision(String partNum) throws Exception{		
 		String sql = 	"SELECT "				
@@ -226,26 +226,26 @@ public class PartDao {
 				+ 		"PartRev.EffectiveDate as effectiveDate "
 				+ 		"FROM pub.PartRev WHERE PartRev.PartNum = ? AND PartRev.Approved = 1";
 		try{
-			log.info("Searching for approved revision for part number: " + partNum);
 			RowMapper<PartRevBean> rm = BeanPropertyRowMapper.newInstance(PartRevBean.class);
 			PartRevBean rev = jdbcTemplate.queryForObject(sql, new Object[]{partNum}, rm);
+			log.info("Approved revision found for part number: " + partNum + " -- Revison: " + rev.getRevisionNum());
 			return rev;
 		}
-		catch(EmptyResultDataAccessException ex){
+		catch(EmptyResultDataAccessException ex){			
 			ex.printStackTrace();
-			throw new RestException(RestError.PART_REVISION_NOT_FOUND);
+			throw new GraniteRestException(RestError.PART_REVISION_NOT_FOUND, ex);
 		}
 		catch(IncorrectResultSizeDataAccessException ex){
 			ex.printStackTrace();
-			throw new RestException(RestError.PART_REVISION_APPROVED_EXCESS);
+			throw new GraniteRestException(RestError.PART_REVISION_APPROVED_EXCESS, ex);
 		}
 		catch(CannotGetJdbcConnectionException ex){
 			ex.printStackTrace();
-			throw new RestException(RestError.NO_DATABASE_CONNECTION, ex.getMessage());
+			throw new GraniteRestException(RestError.NO_DATABASE_CONNECTION, ex);
 		}		
 		catch(Exception ex){
 			ex.printStackTrace();
-			throw new RestException(RestError.APP_SERVER_ERROR, ex.getMessage());
+			throw new GraniteRestException(RestError.APP_SERVER_ERROR, ex);
 		}
 	}
 	
@@ -265,20 +265,20 @@ public class PartDao {
 			RowMapper<PartBinBean> rm = BeanPropertyRowMapper.newInstance(PartBinBean.class);
 			List<PartBinBean> parts = jdbcTemplate.query(sql, new Object[]{partNum}, rm);
 			if(parts.isEmpty())
-				throw new RestException(RestError.PART_BIN_NOT_FOUND);
+				throw new GraniteRestException(RestError.PART_BIN_NOT_FOUND);
 			return parts;
 		}
 		catch(CannotGetJdbcConnectionException ex){
 			ex.printStackTrace();
-			throw new RestException(RestError.NO_DATABASE_CONNECTION, ex.getMessage());
+			throw new GraniteRestException(RestError.NO_DATABASE_CONNECTION, ex.getMessage());
 		}
-		catch(RestException ex){
+		catch(GraniteRestException ex){
 			ex.printStackTrace();
 			throw ex;
 		}
 		catch(Exception ex){
 			ex.printStackTrace();
-			throw new RestException(RestError.APP_SERVER_ERROR, ex.getMessage());
+			throw new GraniteRestException(RestError.APP_SERVER_ERROR, ex.getMessage());
 		}
 	}
 	
@@ -296,15 +296,15 @@ public class PartDao {
 		}
 		catch(EmptyResultDataAccessException ex){
 			ex.printStackTrace();
-			throw new RestException(RestError.PART_PLANT_INFO_NOT_FOUND, ex.getMessage());
+			throw new GraniteRestException(RestError.PART_PLANT_INFO_NOT_FOUND, ex.getMessage());
 		}
 		catch(CannotGetJdbcConnectionException ex){
 			ex.printStackTrace();
-			throw new RestException(RestError.NO_DATABASE_CONNECTION, ex.getMessage());
+			throw new GraniteRestException(RestError.NO_DATABASE_CONNECTION, ex.getMessage());
 		}
 		catch(Exception ex){
 			ex.printStackTrace();
-			throw new RestException(RestError.APP_SERVER_ERROR, ex.getMessage());
+			throw new GraniteRestException(RestError.APP_SERVER_ERROR, ex.getMessage());
 		}
 	}
 	
