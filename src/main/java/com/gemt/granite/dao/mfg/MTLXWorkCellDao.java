@@ -1,9 +1,5 @@
 package com.gemt.granite.dao.mfg;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-
 import javax.sql.DataSource;
 
 import java.util.List;
@@ -105,6 +101,7 @@ public class MTLXWorkCellDao {
 						"JobOper.StartDate AS startDate, "+
 						"JobOper.DueDate AS dueDate, "+
 						"JobOper.RunQty as productionQty, "+
+						"JobOper.EstProdHours as estProdHours, "+
 						// Get part number of first assembly sequence - 1 
 						"JobAsmbl.PartNum as subAsmPartNum, "+
 						// Get material for the parent assembly part 
@@ -216,7 +213,7 @@ public class MTLXWorkCellDao {
 						
 						"FROM pub.JobOper "+
 						"JOIN pub.JobMtl on JobMtl.JobNum = JobOper.JobNum AND JobMtl.AssemblySeq = 0 AND JobMtl.MtlSeq = 10 "+
-						"WHERE JobOper.WCCode = 'MTLX' AND JobOper.OpCode = 'CUT' AND JobOper.ProdComplete = 0 AND JobOper.JobComplete = 0 " +
+						"WHERE JobOper.WCCode = 'MTLN' AND JobOper.OpCode = 'CUT' AND JobOper.ProdComplete = 0 AND JobOper.JobComplete = 0 " +
 						// Get FIRM JOBS only
 						"AND JobOper.JobNum NOT LIKE 'amrp%' " +
 						"ORDER BY JobOper.DueDate ";

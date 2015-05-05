@@ -79,7 +79,7 @@ public class JobOperationDao {
 	}
 	
 	/**
-	 * Return active operation labor details for given work center and operation code.
+	 * Return active operation labor detail for given work center and operation code.
 	 * 
 	 * @return
 	 * @throws Exception

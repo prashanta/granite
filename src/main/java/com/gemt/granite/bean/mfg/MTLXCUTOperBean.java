@@ -15,6 +15,8 @@ public class MTLXCUTOperBean {
 	Date startDate;
 	Date dueDate;		
 	int productionQty;	
+	float estProdHours;
+	
 	int operSeq;
 	String nextWorkCenter;
 	
@@ -52,6 +54,12 @@ public class MTLXCUTOperBean {
 	}
 	public void setProductionQty(int productionQty) {
 		this.productionQty = productionQty;
+	}	
+	public float getEstProdHours() {
+		return estProdHours;
+	}
+	public void setEstProdHours(float estProdHours) {
+		this.estProdHours = estProdHours;
 	}
 	public int getOperSeq() {
 		return operSeq;

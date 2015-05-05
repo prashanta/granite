@@ -1,12 +1,14 @@
 package com.gemt.granite.service.mfg;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.gemt.granite.bean.mfg.MTLXCUTActiveOperationBean;
+import com.gemt.granite.bean.mfg.CUTActiveOperBean;
 import com.gemt.granite.bean.mfg.MTLXCUTOperBean;
 import com.gemt.granite.bean.mfg.OperationLaborBean;
 import com.gemt.granite.dao.mfg.JobOperationDao;
@@ -41,21 +43,25 @@ public class InfoRadiatorService {
 	}
 	
 	@Transactional(readOnly=true, isolation=Isolation.READ_UNCOMMITTED)
-	public MTLXCUTActiveOperationBean getMTLXCUTActiveOper() throws Exception{	
-		MTLXCUTActiveOperationBean activeOperation = new MTLXCUTActiveOperationBean();
+	public List<CUTActiveOperBean> getMTLXCUTActiveOper() throws Exception{	
+		List<CUTActiveOperBean> activeOperations = new ArrayList<CUTActiveOperBean>();
 		
-		List<OperationLaborBean> labors = jobOperationDao.getActiveOperationLabors("MTLX", "CUT");
-		if(labors.size() > 0){
-			activeOperation.setLabor(labors.get(0));		
-			activeOperation.setOper(mtlxWorkCellDao.getMTLXCUTOperDetail(activeOperation.getLabor().getJobNum()));
-			String nextWC = workCenterDao.getNextWorkCell(activeOperation.getOper().getJobNum(), activeOperation.getOper().getOperSeq());
-			activeOperation.getOper().setNextWorkCenter(nextWC);			
-		}
-		else{
-			OperationLaborBean labor = new OperationLaborBean();
-			labor.setJobNum(null);
-			activeOperation.setLabor(labor);
-		}
-		return activeOperation;
+		// Get active CUT operations for MTLX work center 
+		List<OperationLaborBean> stdLabors = jobOperationDao.getActiveOperationLabors("MTLX", "CUT");
+		// Get active CUT operations for MTLN work center
+		List<OperationLaborBean> nonStdLabors = jobOperationDao.getActiveOperationLabors("MTLN", "CUT");
+		// Combine both lists
+		stdLabors.addAll(nonStdLabors);
+		
+		Iterator<OperationLaborBean> itr = stdLabors.iterator();
+		while(itr.hasNext()){
+			CUTActiveOperBean activeOper = new CUTActiveOperBean();
+			activeOper.setLabor(itr.next());
+			activeOper.setOper(mtlxWorkCellDao.getMTLXCUTOperDetail(activeOper.getLabor().getJobNum()));
+			String nextWC = workCenterDao.getNextWorkCell(activeOper.getOper().getJobNum(), activeOper.getOper().getOperSeq());
+			activeOper.getOper().setNextWorkCenter(nextWC);
+			activeOperations.add(activeOper);
+		}		
+		return activeOperations;
 	}
 }

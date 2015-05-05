@@ -7,7 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.gemt.granite.bean.mfg.MTLXCUTActiveOperationBean;
+import com.gemt.granite.bean.mfg.CUTActiveOperBean;
 import com.gemt.granite.bean.mfg.MTLXCUTOperBean;
 import com.gemt.granite.service.mfg.InfoRadiatorService;
 
@@ -39,7 +39,7 @@ public class WorkCellOperation {
 	}
 	
 	@RequestMapping(value="/mtlxcutactive", produces=MediaType.APPLICATION_JSON_VALUE)
-	public MTLXCUTActiveOperationBean getMTLXCUTActiveOper() throws Exception {
+	public List<CUTActiveOperBean> getMTLXCUTActiveOper() throws Exception {
 		return infoRadiatorService.getMTLXCUTActiveOper();
 	}		
 }

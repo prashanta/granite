@@ -3,7 +3,7 @@ package com.gemt.granite.bean.mfg;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class MTLXCUTActiveOperationBean {	
+public class CUTActiveOperBean {	
 	OperationLaborBean labor;
 	MTLXCUTOperBean oper;
 	
