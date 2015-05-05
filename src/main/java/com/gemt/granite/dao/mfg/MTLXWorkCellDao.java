@@ -32,75 +32,21 @@ public class MTLXWorkCellDao {
     }
 	
 	static Logger log = Logger.getLogger(MTLXWorkCellDao.class);		
-	
+		
 	/**
-	 * Get details for all incomplete CUT operation from MTLX work cell for all open Jobs
+	 * Get CUT operation detail for given job number 
 	 * 
 	 * @return
 	 * @throws Exception
 	 */
-	public List<MTLXCUTOperBean> getMTLXCUTOper() throws GraniteRestException{
+	public MTLXCUTOperBean getCutOperDetail(String jobNum) throws GraniteRestException{
 		String sql =	// Get Job details
 						"SELECT "+
 						"JobOper.JobNum AS jobNum, "+
 						"JobOper.StartDate AS startDate, "+
 						"JobOper.DueDate AS dueDate, "+
 						"JobOper.RunQty as productionQty, "+
-						// Get part number of first assembly sequence - 1 
-						"JobAsmbl.PartNum as subAsmPartNum, "+
-						// Get material for the parent assembly part 
-						"PartMtl.MtlPartNum as subAsmMtlPartNum, "+
-						"PartMtl.QtyPer as subAsmMtlQty ,"+
-						"Part.IUM as subAsmMtlUOM, "+
-						// Get first material - 10
-						"JobMtl.PartNum as mtlPartNum, "+
-						"JobMtl.QtyPer as mtlQty, "+
-						"JobMtl.IUM as mtlUOM "+
-						
-						"FROM pub.JobOper "+
-						"LEFT JOIN pub.JobAsmbl ON JobAsmbl.JobNum = JobOper.JobNum AND JobAsmbl.AssemblySeq = 1 "+
-						"LEFT JOIN pub.PartMtl ON PartMtl.PartNum = JobAsmbl.PartNum AND PartMtl.MtlSeq = 10 "+
-						"LEFT JOIN pub.Part ON Part.PartNum = PartMtl.PartNum "+
-						"LEFT JOIN pub.JobMtl on JobMtl.JobNum = JobOper.JobNum AND JobMtl.AssemblySeq = 0 "+
-						"WHERE JobOper.WCCode = 'MTLX' AND JobOper.OpCode = 'CUT' AND JobOper.ProdComplete = 0 AND JobOper.JobComplete = 0  " +
-						"Order by JobOper.StartDate ";
-		try{
-			log.info("Fetching all CUT operations from MTLX workcell");			
-			RowMapper<MTLXCUTOperBean> rm = BeanPropertyRowMapper.newInstance(MTLXCUTOperBean.class);
-			List<MTLXCUTOperBean> operations = jdbcTemplate.query(sql, rm);
-			log.info("Fetched records: " + operations.size());			
-			return operations;
-		}
-		catch(CannotGetJdbcConnectionException ex){
-			ex.printStackTrace();
-			log.error(ex.getMessage());
-			throw new GraniteRestException(RestError.NO_DATABASE_CONNECTION, ex);
-		}
-		catch(BadSqlGrammarException ex){
-			ex.printStackTrace();
-			log.error(ex.getMessage());
-			throw new GraniteRestException(RestError.BAD_SQL_ERROR, ex);
-		}
-		catch(Exception ex){
-			ex.printStackTrace();
-			log.error(ex.getMessage());
-			throw new GraniteRestException(RestError.APP_SERVER_ERROR, ex);
-		}
-	}
-	
-	/**
-	 * Get operation detail for given job number 
-	 * 
-	 * @return
-	 * @throws Exception
-	 */
-	public MTLXCUTOperBean getMTLXCUTOperDetail(String jobNum) throws GraniteRestException{
-		String sql =	// Get Job details
-						"SELECT "+
-						"JobOper.JobNum AS jobNum, "+
-						"JobOper.StartDate AS startDate, "+
-						"JobOper.DueDate AS dueDate, "+
-						"JobOper.RunQty as productionQty, "+
+						"JobOper.OprSeq as operSeq, "+
 						"JobOper.EstProdHours as estProdHours, "+
 						// Get part number of first assembly sequence - 1 
 						"JobAsmbl.PartNum as subAsmPartNum, "+
@@ -118,7 +64,7 @@ public class MTLXWorkCellDao {
 						"LEFT JOIN pub.PartMtl ON PartMtl.PartNum = JobAsmbl.PartNum AND PartMtl.MtlSeq = 10 "+
 						"LEFT JOIN pub.Part ON Part.PartNum = PartMtl.PartNum "+
 						"LEFT JOIN pub.JobMtl on JobMtl.JobNum = JobOper.JobNum AND JobMtl.AssemblySeq = 0 "+
-						"WHERE JobOper.WCCode = 'MTLX' AND JobOper.OpCode = 'CUT' AND " +
+						"WHERE JobOper.OpCode = 'CUT' AND " +
 						"JobOper.ProdComplete = 0 AND JobOper.JobComplete = 0  AND JobOper.JobNum = ?" +
 						"Order by JobOper.StartDate ";
 		try{
@@ -150,7 +96,7 @@ public class MTLXWorkCellDao {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<MTLXCUTOperBean> getMTLXCUTStdOperations() throws GraniteRestException{
+	public List<MTLXCUTOperBean> getMTLXCutOperations() throws GraniteRestException{
 		String sql =	// Get Job details
 						"SELECT "+
 						"JobOper.JobNum AS jobNum, "+
@@ -198,7 +144,7 @@ public class MTLXWorkCellDao {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<MTLXCUTOperBean> getMTLXCUTNonStdOperations() throws GraniteRestException{
+	public List<MTLXCUTOperBean> getMTLNCutOperations() throws GraniteRestException{
 		String sql =	// Get Job details
 						"SELECT "+
 						"JobOper.JobNum AS jobNum, "+

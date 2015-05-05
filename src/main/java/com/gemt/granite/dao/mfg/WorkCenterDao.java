@@ -130,7 +130,7 @@ public class WorkCenterDao {
 			ps.setInt(2, operSeq);
 			ResultSet rs = ps.executeQuery();			
 			if(rs.next()){
-				nextWC = rs.getString(1);
+				nextWC = rs.getString(1);				
 			}
 			rs.close();			
 			con.close();

@@ -25,25 +25,21 @@ public class InfoRadiatorService {
 	@Autowired
 	WorkCenterDao workCenterDao;
 	
-	@Transactional(readOnly=true, isolation=Isolation.READ_UNCOMMITTED)
-	public List<MTLXCUTOperBean> getMTLXCUTOper() throws Exception{
-		return mtlxWorkCellDao.getMTLXCUTOper();
-	}
 	
 	@Transactional(readOnly=true, isolation=Isolation.READ_UNCOMMITTED)
-	public List<MTLXCUTOperBean> getMTLXCUTStdOper() throws Exception{
-		List<MTLXCUTOperBean> stdOperations = mtlxWorkCellDao.getMTLXCUTStdOperations();
+	public List<MTLXCUTOperBean> getMTLXCutOperations() throws Exception{
+		List<MTLXCUTOperBean> stdOperations = mtlxWorkCellDao.getMTLXCutOperations();
 		return stdOperations;
 	}
 	
 	@Transactional(readOnly=true, isolation=Isolation.READ_UNCOMMITTED)
-	public List<MTLXCUTOperBean> getMTLXCUTNonStdOper() throws Exception{
-		List<MTLXCUTOperBean> nonStdOperations = mtlxWorkCellDao.getMTLXCUTNonStdOperations();
+	public List<MTLXCUTOperBean> getMTLNCutOperations() throws Exception{
+		List<MTLXCUTOperBean> nonStdOperations = mtlxWorkCellDao.getMTLNCutOperations();
 		return nonStdOperations;
 	}
 	
 	@Transactional(readOnly=true, isolation=Isolation.READ_UNCOMMITTED)
-	public List<CUTActiveOperBean> getMTLXCUTActiveOper() throws Exception{	
+	public List<CUTActiveOperBean> getActiveCutOperations() throws Exception{	
 		List<CUTActiveOperBean> activeOperations = new ArrayList<CUTActiveOperBean>();
 		
 		// Get active CUT operations for MTLX work center 
@@ -54,10 +50,12 @@ public class InfoRadiatorService {
 		stdLabors.addAll(nonStdLabors);
 		
 		Iterator<OperationLaborBean> itr = stdLabors.iterator();
+		
 		while(itr.hasNext()){
 			CUTActiveOperBean activeOper = new CUTActiveOperBean();
 			activeOper.setLabor(itr.next());
-			activeOper.setOper(mtlxWorkCellDao.getMTLXCUTOperDetail(activeOper.getLabor().getJobNum()));
+			MTLXCUTOperBean cutOper = mtlxWorkCellDao.getCutOperDetail(activeOper.getLabor().getJobNum()); 
+			activeOper.setOper(cutOper);
 			String nextWC = workCenterDao.getNextWorkCell(activeOper.getOper().getJobNum(), activeOper.getOper().getOperSeq());
 			activeOper.getOper().setNextWorkCenter(nextWC);
 			activeOperations.add(activeOper);

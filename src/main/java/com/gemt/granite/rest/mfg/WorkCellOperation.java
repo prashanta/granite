@@ -22,24 +22,19 @@ import com.gemt.granite.service.mfg.InfoRadiatorService;
 public class WorkCellOperation {
 	@Autowired  
 	InfoRadiatorService infoRadiatorService;
-
-	@RequestMapping(value="/mtlxcut", produces=MediaType.APPLICATION_JSON_VALUE)
-	public List<MTLXCUTOperBean> getMTLXCUTOper() throws Exception {
-		return infoRadiatorService.getMTLXCUTOper();
+		
+	@RequestMapping(value="/mtlxcutoperations", produces=MediaType.APPLICATION_JSON_VALUE)
+	public List<MTLXCUTOperBean> getMTLXCutOperations() throws Exception {
+		return infoRadiatorService.getMTLXCutOperations();
 	}
 	
-	@RequestMapping(value="/mtlxcutstd", produces=MediaType.APPLICATION_JSON_VALUE)
-	public List<MTLXCUTOperBean> getMTLXCUTStdOper() throws Exception {
-		return infoRadiatorService.getMTLXCUTStdOper();
+	@RequestMapping(value="/mtlncutoperations", produces=MediaType.APPLICATION_JSON_VALUE)
+	public List<MTLXCUTOperBean> getMTLNCutOperations() throws Exception {
+		return infoRadiatorService.getMTLNCutOperations();
 	}
 	
-	@RequestMapping(value="/mtlxcutnonstd", produces=MediaType.APPLICATION_JSON_VALUE)
-	public List<MTLXCUTOperBean> getMTLXCUTNonStdOper() throws Exception {
-		return infoRadiatorService.getMTLXCUTNonStdOper();
-	}
-	
-	@RequestMapping(value="/mtlxcutactive", produces=MediaType.APPLICATION_JSON_VALUE)
-	public List<CUTActiveOperBean> getMTLXCUTActiveOper() throws Exception {
-		return infoRadiatorService.getMTLXCUTActiveOper();
+	@RequestMapping(value="/activecutoperations", produces=MediaType.APPLICATION_JSON_VALUE)
+	public List<CUTActiveOperBean> getActiveCutOperations() throws Exception {
+		return infoRadiatorService.getActiveCutOperations();
 	}		
 }
