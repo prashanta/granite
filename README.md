@@ -34,13 +34,14 @@ Returns plate related information for given "partnum". E.g:
 
 REST: http://192.168.74.250/granite/api/part/plant/7188
 RESULT:
+```
 {
 	"partNum": "7188",
 	"leadTime": 45,
 	"processMRP": true,
 	"daysOfSupply": 10
 }
-
+```
 ---
 
 ##PACKAGE: com.gemt.granite.rest.erp.Material
@@ -50,6 +51,7 @@ Returns child parts of given parent "partnum" and "revnum". E.g.:
 
 REST: http://192.168.74.250/granite/api/mtl/7371/-
 RESULT:
+```
 [
 	{
 		"partNum": ""7371,
@@ -79,7 +81,7 @@ RESULT:
 		"viewAsAsm": false
 	}
 ]
-
+```
 	
 **granite/api/mtl//{partnum}**
 Returns child parts of approved revision of given parent "partnum".
@@ -89,6 +91,7 @@ Returns child parts with detail information for given parent "partnum" and "revn
 
 REST: http://192.168.74.250/granite/api/mtl/detail/7371/-
 RESULT:
+```
 [
 	{
 		"partNum": "7371",
@@ -120,6 +123,7 @@ RESULT:
 	},
 	...
 ]
+```
 
 **granite/api/mtl/detail/{partnum}**
 Returns child parts with detail information of approved revision of given parent "partnum" and "revnum".
