@@ -2,6 +2,21 @@
 
 A REST Service for Vantage ERP.
 
+##INSTALL NOTE: 
+**Make sure Java Runtime is set to JRE7 in Eclipse, JAVA_HOME and Tomcat. And**
+
+**1. Include following jars in classpath (or C:\Program Files (x86)\Apache Software Foundation\Tomcat 7.0\lib):**
+
+•	jdbc.jar
+
+•	progress.jar
+
+**2. Include the following dlls in PATH (C:\Program Files (x86)\Java\jre7\bin):**
+
+•	JdbcProgress.dll
+
+•	procli92.dll
+
 ##PACKAGE: com.gemt.granite.rest.erp.Part
 
 **granite/api/part/info/{partnum}**
@@ -54,7 +69,7 @@ RESULT:
 ```
 [
 	{
-		"partNum": ""7371,
+		"partNum": "7371",
 		"revisionNum": "-",
 		"mtlSeq": 10,
 		"qtyPer": 1,
