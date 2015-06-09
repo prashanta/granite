@@ -11,16 +11,25 @@
         http://www.springframework.org/schema/context/spring-context-4.0.xsd
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
-    <context:component-scan base-package="com.gemt.granite"  />
-        
+    <context:component-scan base-package="com.gemt.granite"  >
+    	<!-- <context:include-filter type="aspectj" expression="com.gemt.granite.*" /> -->
+	</context:component-scan>   
+    
     <mvc:annotation-driven />
 	
 	<mvc:interceptors>    	
 		<bean class="com.gemt.granite.monitor.Monitor" />    	
 	</mvc:interceptors>
-	      
+	 
+	 <!-- Declare a view resolver -->
+   <!--  <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver" 
+            p:prefix="/WEB-INF/jsp/" p:suffix=".jsp" /> -->
+            
+    
+                  
     <bean id="partDao" class="com.gemt.granite.dao.erp.PartDao" />
 	<bean id="partService" class="com.gemt.granite.service.erp.PartService" />
+	<!-- <bean id="bomService" class="com.gemt.granite.service.erp.BOMService" /> -->   
 	
     <bean id="workCenterDao" class="com.gemt.granite.dao.mfg.WorkCenterDao" />
 	<bean id="workCenterService" class="com.gemt.granite.service.mfg.WorkCenterService" />
@@ -33,7 +42,14 @@
 	
     <bean id="mtlxWorkCellDao" class="com.gemt.granite.dao.mfg.MTLXWorkCellDao" />
 	<bean id="infoRadiatorService" class="com.gemt.granite.service.mfg.InfoRadiatorService" />
+	
+	
 	    		   
+	<!-- <bean id="bomService" class="granite.gemt.BOM.service.erp.BOMService" init-method="initIt" destroy-method="cleanUp" >
+	<bean id="bomService" class="granite.gemt.BOM.service.erp.BOMService" />
+ 	<property name="message" value="i'm property message" />
+	</bean> -->
+			
    	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.progress.sql.jdbc.JdbcProgressDriver" />
 		<property name="url" value="jdbc:jdbcprogress:T:192.168.74.20:6100:mfgsys" />
@@ -44,4 +60,6 @@
 	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
    		<property name="dataSource" ref="dataSource"/>
 	</bean>
+	
+	
 </beans>

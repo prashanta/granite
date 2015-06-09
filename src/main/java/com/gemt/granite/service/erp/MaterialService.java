@@ -14,7 +14,7 @@ import com.gemt.granite.dao.erp.MaterialDao;
 import com.gemt.granite.dao.erp.PartDao;
 
 public class MaterialService {
-	@Autowired
+	@Autowired 
 	MaterialDao materialDao;
 	
 	@Autowired
@@ -35,6 +35,7 @@ public class MaterialService {
 	}
 
 	public List<MaterialDetailBean> getMaterialDetails(String partNum, String revNum) throws Exception {
+		MaterialDao materialDao = new MaterialDao();
 		return materialDao.getMaterialDetails(partNum, revNum);		
 	}
 }
