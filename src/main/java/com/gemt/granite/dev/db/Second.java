@@ -16,19 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.gemt.granite.bean.erp.MaterialBean;
-import com.gemt.granite.bean.erp.MaterialDetailBean;
-import com.gemt.granite.bean.erp.PartBean;
-import com.gemt.granite.bean.erp.PartPlantBean;
-import com.gemt.granite.bean.erp.PartRevBean;
-import com.gemt.granite.bean.error.ErrorMessage;
-import com.gemt.granite.dao.erp.MaterialDao;
-import com.gemt.granite.dao.erp.PartDao;
-import com.gemt.granite.dao.mfg.MTLXWorkCellDao;
-import com.gemt.granite.service.erp.MaterialService;
-import com.gemt.granite.service.erp.PartService;
-import com.gemt.granite.rest.erp.Material;
-import com.gemt.granite.rest.erp.Part;
+
 
 /**
  * Returns information on parts.
@@ -40,10 +28,15 @@ import com.gemt.granite.rest.erp.Part;
 @RequestMapping(value = "/dev")
 public class Second {
 
+	@Autowired
+	TestDAO t = new TestDAO();
+	
 	@RequestMapping(value = "/dbTest", method = RequestMethod.GET)
 	public ResponseEntity<String> test() throws Exception {
 		String ret = "Hallo!! Testing DB!!";
 		System.out.println(ret);
+		
+		t.insert();
 		
 		return new ResponseEntity<String>(ret,
 				HttpStatus.OK);

@@ -7,6 +7,7 @@ import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -21,9 +22,8 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import com.gemt.granite.bean.erp.MaterialBean;
 import com.gemt.granite.bean.erp.MaterialDetailBean;
-import com.gemt.granite.exception.RestError;
 import com.gemt.granite.exception.GraniteRestException;
-import com.sun.corba.se.pept.transport.Connection;
+import com.gemt.granite.exception.RestError;
 
 @Repository
 public class MaterialDao {
@@ -31,12 +31,14 @@ public class MaterialDao {
 	private JdbcTemplate jdbcTemplate;
 	 
 	@Autowired
+	@Qualifier("dataSource1")
     public void setDataSource(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 	
-	@Autowired
-	DataSourceTransactionManager txManager;
+//	@Autowired
+//	@Qualifier("txManager1")
+//	DataSourceTransactionManager txManager;
 
 	static Logger log = Logger.getLogger(MaterialDao.class);
 	
@@ -75,7 +77,7 @@ public class MaterialDao {
 		}
 	}
 	
-	@Transactional(isolation=Isolation.READ_COMMITTED)
+//	@Transactional(isolation=Isolation.READ_COMMITTED)
 	public List<MaterialDetailBean> getMaterialDetails(String partNum, String revNum) throws Exception{
 		String sql =	
 				  "SELECT "
@@ -123,10 +125,10 @@ public class MaterialDao {
 				+ "ORDER BY PartMtl.MtlSeq ";
 		
 		// An attempt to change isolation level
-		DefaultTransactionDefinition def = new DefaultTransactionDefinition();
-	    def.setIsolationLevel(TransactionDefinition.ISOLATION_READ_UNCOMMITTED);
+//		DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+//	    def.setIsolationLevel(TransactionDefinition.ISOLATION_READ_UNCOMMITTED);
 
-	    TransactionStatus status = txManager.getTransaction(def);	    
+//	    TransactionStatus status = txManager.getTransaction(def);	    
 	    
 		try{
 			log.info("Retriving materials with detail info for part number: " + partNum);			
