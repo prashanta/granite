@@ -29,7 +29,7 @@
                   
     <bean id="partDao" class="com.gemt.granite.dao.erp.PartDao" />
 	<bean id="partService" class="com.gemt.granite.service.erp.PartService" />
-	<!-- <bean id="bomService" class="com.gemt.granite.service.erp.BOMService" /> -->   
+	<bean id="bomService" class="com.gemt.granite.service.erp.BOMService" />   
 	
     <bean id="workCenterDao" class="com.gemt.granite.dao.mfg.WorkCenterDao" />
 	<bean id="workCenterService" class="com.gemt.granite.service.mfg.WorkCenterService" />
