@@ -52,7 +52,7 @@
 			 ...74.235 clone server
 			 ...74.204 cloned virtual server-->
 		<property name="url"
-			value="jdbc:jdbcprogress:T:192.168.74.204:6100:mfgsys" />
+			value="jdbc:jdbcprogress:T:192.168.74.235:6100:mfgsys" />
 		<property name="username" value="sysprogress" />
 		<property name="password" value="aprilfools" />
 	</bean>
