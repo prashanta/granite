@@ -25,13 +25,13 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @RestController
-@RequestMapping(value = "/dev")
+@RequestMapping(value = "/devDB")
 public class Second {
 
 	@Autowired
 	TestDAO t = new TestDAO();
 	
-	@RequestMapping(value = "/dbTest", method = RequestMethod.GET)
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
 	public ResponseEntity<String> test() throws Exception {
 		String ret = "Hallo!! Testing DB!!";
 		System.out.println(ret);
