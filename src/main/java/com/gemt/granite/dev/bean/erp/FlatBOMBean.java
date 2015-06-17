@@ -8,7 +8,7 @@ public class FlatBOMBean {
 	String partNum;
 	String Description;
 	String partClass;
-	int qtyPer;
+	float qtyPer;
 	String partType;
 
 	private String invUM;
@@ -37,11 +37,11 @@ public class FlatBOMBean {
 		this.partClass = partClass;
 	}
 
-	public int getQtyPer() {
+	public float getQtyPer() {
 		return qtyPer;
 	}
 
-	public void setQtyPer(int qtyPer) {
+	public void setQtyPer(float qtyPer) {
 		this.qtyPer = qtyPer;
 	}
 

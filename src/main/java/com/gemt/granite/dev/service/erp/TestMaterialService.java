@@ -19,6 +19,7 @@ public class TestMaterialService {
 	public List<MaterialInfoBean> getMaterialInfo(String partNum) throws Exception{
 		System.out.println(">> in dev.materialService.");
 		PartRevBean partRev = testPartDao.getApprovedRevision(partNum);
+		System.out.println(">> part revision num: '" + partRev.getRevisionNum() + "'");
 		return testMaterialDao.getMaterialInfo(partNum, partRev.getRevisionNum());
 	}
 }

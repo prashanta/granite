@@ -16,7 +16,7 @@ public class MaterialInfoBean {
 	boolean pullAsAsm;
 	boolean viewAsAsm;
 	String revisionNum;
-	int qtyPer;
+	float qtyPer;
 	String partDescription;
 	String partClass;
 	String partType;
@@ -54,11 +54,19 @@ public class MaterialInfoBean {
 		this.viewAsAsm = viewAsAsm;
 	}
 
-	public int getQtyPer() {
+	public String getRevisionNum() {
+		return revisionNum;
+	}
+
+	public void setRevisionNum(String revisionNum) {
+		this.revisionNum = revisionNum;
+	}
+
+	public float getQtyPer() {
 		return qtyPer;
 	}
 
-	public void setQtyPer(int qtyPer) {
+	public void setQtyPer(float qtyPer) {
 		this.qtyPer = qtyPer;
 	}
 

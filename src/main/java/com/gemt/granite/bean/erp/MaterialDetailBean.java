@@ -13,7 +13,7 @@ public class MaterialDetailBean{
 	
 	String partNum;
 	int mtlSeq;
-	int qtyPer;
+	float qtyPer;
 	String mtlPartNum;
 	String bubbleNum;
 	boolean pullAsAsm;
@@ -55,7 +55,7 @@ public class MaterialDetailBean{
 	public void setMtlSeq(int mtlSeq) {
 		this.mtlSeq = mtlSeq;
 	}
-	public int getQtyPer() {
+	public float getQtyPer() {
 		return qtyPer;
 	}
 	public void setQtyPer(int qtyPer) {
