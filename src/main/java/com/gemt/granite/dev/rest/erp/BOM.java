@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gemt.granite.bean.erp.MaterialDetailBean;
-import com.gemt.granite.dev.bean.erp.FlatBOMBean;
+import com.gemt.granite.dev.bean.erp.MaterialInfoBean;
 import com.gemt.granite.dev.service.erp.BOMService;
-import com.gemt.granite.service.erp.MaterialService;
+import com.gemt.granite.dev.service.erp.TestMaterialService;
 
 
 /**
@@ -30,22 +30,22 @@ public class BOM {
 	// final String jsonFilePath = "C:\\Users\\Yemini\\Desktop\\FlatBOM.json";
 
 	@Autowired
-	MaterialService materialService;
+	TestMaterialService testMaterialService;
 
 	@RequestMapping(value = "/{partNum}", method = RequestMethod.GET)
-	public ResponseEntity<List<FlatBOMBean>> getFlatBOM(
+	public ResponseEntity<List<MaterialInfoBean>> getFlatBOM(
 			@PathVariable(value = "partNum") String partNum) throws Exception {
 
 
 		BOMService bomService = new BOMService();
-		List<MaterialDetailBean> beans = materialService
-				.getMaterialDetails(partNum);
-		Map<String, FlatBOMBean> m = bomService.qtyCount(beans, 1,
-				materialService);
+		List<MaterialInfoBean> beans = testMaterialService
+				.getMaterialInfo(partNum);
+		Map<String, MaterialInfoBean> m = bomService.qtyCount(beans, 1,
+				testMaterialService);
 
-		List<FlatBOMBean> flatBOMs = new ArrayList<FlatBOMBean>(m.values());
+		List<MaterialInfoBean> flatBOMs = new ArrayList<MaterialInfoBean>(m.values());
 
-		return new ResponseEntity<List<FlatBOMBean>>(flatBOMs, HttpStatus.OK);
+		return new ResponseEntity<List<MaterialInfoBean>>(flatBOMs, HttpStatus.OK);
 
 	}
 }

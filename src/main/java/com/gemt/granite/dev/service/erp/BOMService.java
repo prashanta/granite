@@ -4,9 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.gemt.granite.bean.erp.MaterialDetailBean;
-import com.gemt.granite.dev.bean.erp.FlatBOMBean;
-import com.gemt.granite.service.erp.MaterialService;
+import com.gemt.granite.dev.bean.erp.MaterialInfoBean;
 
 /**
  * Returns information on parts.
@@ -25,40 +23,36 @@ import com.gemt.granite.service.erp.MaterialService;
 
 public class BOMService {
 
-	public Map<String, FlatBOMBean> qtyCount(List<MaterialDetailBean> list,
-			float n, MaterialService ms) throws Exception {
+	public Map<String, MaterialInfoBean> qtyCount(List<MaterialInfoBean> mtlList,
+			float n, TestMaterialService ms) throws Exception {
 
-		Map<String, FlatBOMBean> mtlMap = new HashMap<String, FlatBOMBean>();
-		Map<String, FlatBOMBean> childMap = new HashMap<String, FlatBOMBean>();
+		Map<String, MaterialInfoBean> mtlMap = new HashMap<String, MaterialInfoBean>();
+		Map<String, MaterialInfoBean> childMap = new HashMap<String, MaterialInfoBean>();
 
 		String partNo;
 		BOMService bomService = new BOMService();
 
-		for (MaterialDetailBean mtl : list) {
-			FlatBOMBean currentBOM = new FlatBOMBean();
+		for (MaterialInfoBean mtl : mtlList) {
+			MaterialInfoBean currentBean = new MaterialInfoBean();
 			if (mtl.isPullAsAsm() && mtl.isViewAsAsm()
-					&& mtl.getMtlPartNum() != null) { // condition if child
-				// exists
-				FlatBOMBean childFlatBomBean = new FlatBOMBean();
-
+					&& mtl.getMtlPartNum() != null) { // condition if child exists
+				
+				MaterialInfoBean childBean = new MaterialInfoBean();
 				partNo = mtl.getMtlPartNum();
-				System.out.println(">> PartNum: " + partNo);
-				childFlatBomBean.setQtyPer(mtl.getQtyPer());
-				mtlMap.put(partNo, setFlatBomBean(mtl, childFlatBomBean));
-				List<MaterialDetailBean> children = null;
+				childBean.setQtyPer(mtl.getQtyPer());
+				mtlMap.put(partNo, setFlatBomBean(mtl, childBean));
+				List<MaterialInfoBean> children = null;
 				try{
 				 children = ms
-						.getMaterialDetails(partNo); // retrieve child parts of
+						.getMaterialInfo(partNo); // retrieve child parts of
 				// a child
 				}
 				catch(Exception e)
 				{
 					System.out.println("NO CHILd... in " + partNo);
-//					e.printStackTrace();
 				}
 				finally{
 					if ( children != null && children.size() > 0) {
-						System.out.println(">> Counting children");
 						childMap = bomService.qtyCount(children,
 								mtl.getQtyPer(), ms); // recursive call
 						compareMap(mtlMap, childMap);
@@ -72,7 +66,7 @@ public class BOMService {
 																// in map update
 																// the part
 
-					FlatBOMBean tempBeam = mtlMap.get(mtl.getMtlPartNum());
+					MaterialInfoBean tempBeam = mtlMap.get(mtl.getMtlPartNum());
 					float tmpCount = tempBeam.getQtyPer();
 					tempBeam.setQtyPer(tmpCount + (mtl.getQtyPer() * n));
 					mtlMap.put(mtl.getMtlPartNum(), tempBeam);
@@ -80,9 +74,9 @@ public class BOMService {
 				} else { // if part does not exist in map just add it into the
 							// parent map
 
-					currentBOM.setQtyPer(mtl.getQtyPer() * n);
+					currentBean.setQtyPer(mtl.getQtyPer() * n);
 					mtlMap.put(mtl.getMtlPartNum(),
-							setFlatBomBean(mtl, currentBOM));
+							setFlatBomBean(mtl, currentBean));
 
 				}
 			}
@@ -91,13 +85,13 @@ public class BOMService {
 		return mtlMap;
 	}
 
-	private static void compareMap(Map<String, FlatBOMBean> parentMap,
-			Map<String, FlatBOMBean> childMap) {
+	private static void compareMap(Map<String, MaterialInfoBean> parentMap,
+			Map<String, MaterialInfoBean> childMap) {
 
 		for (String key : childMap.keySet()) {
 			if (parentMap.containsKey(key)) { // if part exists in map
-				FlatBOMBean Parent_BOM = parentMap.get(key);
-				FlatBOMBean child_BOM = childMap.get(key);
+				MaterialInfoBean Parent_BOM = parentMap.get(key);
+				MaterialInfoBean child_BOM = childMap.get(key);
 				Parent_BOM.setQtyPer(Parent_BOM.getQtyPer()
 						+ child_BOM.getQtyPer());
 				parentMap.put(key, Parent_BOM);
@@ -110,11 +104,11 @@ public class BOMService {
 		}
 	}
 
-	private static FlatBOMBean setFlatBomBean(MaterialDetailBean mdb,
-			FlatBOMBean flatBomBean) {
+	private static MaterialInfoBean setFlatBomBean(MaterialInfoBean mdb,
+			MaterialInfoBean flatBomBean) {
 
 		flatBomBean.setPartClass(mdb.getPartClass());
-		flatBomBean.setDescription(mdb.getPartDescription());
+		flatBomBean.setPartDescription(mdb.getPartDescription());
 		flatBomBean.setPartNum(mdb.getMtlPartNum());
 		flatBomBean.setInvUM(mdb.getInvUM());
 		flatBomBean.setPartType(mdb.getPartType());
