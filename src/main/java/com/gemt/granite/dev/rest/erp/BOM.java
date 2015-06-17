@@ -33,7 +33,7 @@ public class BOM {
 	MaterialService materialService;
 
 	@RequestMapping(value = "/{partNum}", method = RequestMethod.GET)
-	public ResponseEntity<List<FlatBOMBean>> getMaterials(
+	public ResponseEntity<List<FlatBOMBean>> getFlatBOM(
 			@PathVariable(value = "partNum") String partNum) throws Exception {
 
 

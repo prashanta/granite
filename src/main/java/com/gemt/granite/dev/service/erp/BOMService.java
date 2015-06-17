@@ -16,7 +16,8 @@ import com.gemt.granite.service.erp.MaterialService;
  * compaerMap(parentMap,childMap) updates the parentMap, if the part in childMap
  * is found in parentMap, update the quantity and add to parentMap.
  * 
- * setFlatBomBean(MaterialDetailBean mdb,FlatBOMBean flatBomBean) sets id's of FlatBOMBean
+ * setFlatBomBean(MaterialDetailBean mdb,FlatBOMBean flatBomBean) sets id's of
+ * FlatBOMBean
  * 
  * @throws Exception
  * @author Yemini.B
@@ -35,22 +36,36 @@ public class BOMService {
 
 		for (MaterialDetailBean mtl : list) {
 			FlatBOMBean currentBOM = new FlatBOMBean();
-			if (mtl.isPullAsAsm() && mtl.isViewAsAsm()) { // condition if child
-															// exists
+			if (mtl.isPullAsAsm() && mtl.isViewAsAsm()
+					&& mtl.getMtlPartNum() != null) { // condition if child
+				// exists
 				FlatBOMBean childFlatBomBean = new FlatBOMBean();
 
 				partNo = mtl.getMtlPartNum();
+				System.out.println(">> PartNum: " + partNo);
 				childFlatBomBean.setQtyPer(mtl.getQtyPer());
 				mtlMap.put(partNo, setFlatBomBean(mtl, childFlatBomBean));
-
-				List<MaterialDetailBean> children = ms
+				List<MaterialDetailBean> children = null;
+				try{
+				 children = ms
 						.getMaterialDetails(partNo); // retrieve child parts of
 				// a child
-				childMap = bomService.qtyCount(children, mtl.getQtyPer(), ms); // recursive
-																				// call
-
-				compareMap(mtlMap, childMap);
-
+				}
+				catch(Exception e)
+				{
+					System.out.println("NO CHILd... in " + partNo);
+//					e.printStackTrace();
+				}
+				finally{
+					if ( children != null && children.size() > 0) {
+						System.out.println(">> Counting children");
+						childMap = bomService.qtyCount(children,
+								mtl.getQtyPer(), ms); // recursive call
+						compareMap(mtlMap, childMap);
+					}
+				}
+				
+				
 			} else { // condition if no child
 
 				if (mtlMap.containsKey(mtl.getMtlPartNum())) { // if part exists
@@ -68,7 +83,7 @@ public class BOMService {
 					currentBOM.setQtyPer(mtl.getQtyPer() * n);
 					mtlMap.put(mtl.getMtlPartNum(),
 							setFlatBomBean(mtl, currentBOM));
-					
+
 				}
 			}
 		}
