@@ -200,4 +200,7 @@ public class MaterialDetailBean{
 	public void setPrimaryBin(String primaryBin) {
 		this.primaryBin = primaryBin;
 	}	
+	public String toString(){
+		return ">>>mdb partnum:" + partNum + ", description:" + partDescription + ", qty:" + qtyPer;
+	}
 }

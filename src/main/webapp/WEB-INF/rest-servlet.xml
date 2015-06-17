@@ -25,6 +25,7 @@
 	<bean id="partService" class="com.gemt.granite.service.erp.PartService" />
 
 	<bean id="workCenterDao" class="com.gemt.granite.dao.mfg.WorkCenterDao" />
+
 	<bean id="workCenterService" class="com.gemt.granite.service.mfg.WorkCenterService" />
 
 	<bean id="jobOperationDao" class="com.gemt.granite.dao.mfg.JobOperationDao" />
@@ -57,8 +58,6 @@
 		<property name="password" value="aprilfools" />
 	</bean>
 
-	
-
 	<!-- Second Database PostgrSQL -->
 	<bean id="dataSource2"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -85,3 +84,4 @@
 <!-- 	</bean> -->
 
 </beans>
+
