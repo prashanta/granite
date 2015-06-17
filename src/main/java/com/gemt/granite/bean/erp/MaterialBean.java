@@ -8,7 +8,7 @@ public class MaterialBean {
 	String partNum;
 	String revisionNum;
 	int mtlSeq;
-	int qtyPer;
+	float qtyPer;
 	String mtlPartNum;
 	boolean pullAsAsm;
 	boolean viewAsAsm;
@@ -31,7 +31,7 @@ public class MaterialBean {
 	public void setMtlSeq(int mtlSeq) {
 		this.mtlSeq = mtlSeq;
 	}
-	public int getQtyPer() {
+	public float getQtyPer() {
 		return qtyPer;
 	}
 	public void setQtyPer(int qtyPer) {

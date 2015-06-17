@@ -25,7 +25,7 @@ import com.gemt.granite.service.erp.MaterialService;
 public class BOMService {
 
 	public Map<String, FlatBOMBean> qtyCount(List<MaterialDetailBean> list,
-			int n, MaterialService ms) throws Exception {
+			float n, MaterialService ms) throws Exception {
 
 		Map<String, FlatBOMBean> mtlMap = new HashMap<String, FlatBOMBean>();
 		Map<String, FlatBOMBean> childMap = new HashMap<String, FlatBOMBean>();
@@ -58,7 +58,7 @@ public class BOMService {
 																// the part
 
 					FlatBOMBean tempBeam = mtlMap.get(mtl.getMtlPartNum());
-					int tmpCount = tempBeam.getQtyPer();
+					float tmpCount = tempBeam.getQtyPer();
 					tempBeam.setQtyPer(tmpCount + (mtl.getQtyPer() * n));
 					mtlMap.put(mtl.getMtlPartNum(), tempBeam);
 
