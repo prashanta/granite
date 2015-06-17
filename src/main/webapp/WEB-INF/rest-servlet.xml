@@ -42,6 +42,8 @@
 	<bean id="testMaterialInfoDAO" class="com.gemt.granite.dev.dao.erp.TestMaterialDao" />
 	<bean id="testMaterialService" class="com.gemt.granite.dev.service.erp.TestMaterialService" />
 	
+	<bean id="testBOMService" class="com.gemt.granite.dev.service.erp.BOMService" />
+	
 	
 	<bean id="dataSource1"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
