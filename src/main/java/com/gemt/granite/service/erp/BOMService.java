@@ -1,10 +1,10 @@
-package com.gemt.granite.dev.service.erp;
+package com.gemt.granite.service.erp;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.gemt.granite.dev.bean.erp.MaterialInfoBean;
+import com.gemt.granite.bean.erp.MaterialInfoBean;
 
 /**
  * Returns information on parts.
@@ -24,7 +24,7 @@ import com.gemt.granite.dev.bean.erp.MaterialInfoBean;
 public class BOMService {
 
 	public Map<String, MaterialInfoBean> qtyCount(List<MaterialInfoBean> mtlList,
-			float n, TestMaterialService ms) throws Exception {
+			float n, MaterialService ms) throws Exception {
 
 		Map<String, MaterialInfoBean> mtlMap = new HashMap<String, MaterialInfoBean>();
 		Map<String, MaterialInfoBean> childMap = new HashMap<String, MaterialInfoBean>();

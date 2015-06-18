@@ -1,12 +1,6 @@
-package com.gemt.granite.dev.bean.erp;
-
-import java.util.Date;
+package com.gemt.granite.bean.erp;
 
 import javax.xml.bind.annotation.XmlRootElement;
-
-import org.codehaus.jackson.map.annotate.JsonSerialize;
-
-import com.gemt.granite.utility.JsonDateSerializer;
 
 @XmlRootElement
 public class MaterialInfoBean {

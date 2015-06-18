@@ -2,8 +2,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="
         http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
@@ -20,6 +19,7 @@
 	<mvc:interceptors>
 		<bean class="com.gemt.granite.monitor.Monitor" />
 	</mvc:interceptors>
+	
 
 	<bean id="partDao" class="com.gemt.granite.dao.erp.PartDao" />
 	<bean id="partService" class="com.gemt.granite.service.erp.PartService" />
@@ -36,29 +36,25 @@
 
 	<bean id="mtlxWorkCellDao" class="com.gemt.granite.dao.mfg.MTLXWorkCellDao" />
 	<bean id="infoRadiatorService" class="com.gemt.granite.service.mfg.InfoRadiatorService" />
-
+	
 	<!-- Test DAOs -->
 	<bean id="testDAO" class="com.gemt.granite.dev.db.TestDAO" />
-	
-	<bean id="testMaterialInfoDAO" class="com.gemt.granite.dev.dao.erp.TestMaterialDao" />
-	<bean id="testMaterialService" class="com.gemt.granite.dev.service.erp.TestMaterialService" />
-	
-	<bean id="testBOMService" class="com.gemt.granite.dev.service.erp.BOMService" />
-	
-	
+
+
+
+
 	<bean id="dataSource1"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.progress.sql.jdbc.JdbcProgressDriver" />
-		<!-- ...74.20  main server
-			 ...74.235 clone server
-			 ...74.204 cloned virtual server-->
+		<!-- ...74.20 main server ...74.235 clone server ...74.204 cloned virtual 
+			server -->
 		<property name="url"
-			value="jdbc:jdbcprogress:T:192.168.74.235:6100:mfgsys" />
+			value="jdbc:jdbcprogress:T:192.168.74.20:6100:mfgsys" />
 		<property name="username" value="sysprogress" />
 		<property name="password" value="aprilfools" />
 	</bean>
 
-	<!-- Second Database PostgrSQL -->
+	<!-- Example of Second Database using PostgrSQL -->
 	<bean id="dataSource2"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="org.postgresql.Driver" />
@@ -67,21 +63,21 @@
 		<property name="username" value="postgres" />
 		<property name="password" value="potato" />
 	</bean>
-	
-	<tx:annotation-driven/>
-	
+
+	<tx:annotation-driven />
+
 	<bean id="txManager1"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<qualifier value="txManager" />
 		<property name="dataSource" ref="dataSource1" />
 	</bean>
-	
+
 	<!-- Second Database PostgrSQL -->
-<!-- 	<bean id="txManager2" -->
-<!-- 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager"> -->
-<!-- 		<qualifier value="txManager2" /> -->
-<!-- 		<property name="dataSource" ref="dataSource2" /> -->
-<!-- 	</bean> -->
+	<!-- <bean id="txManager2" -->
+	<!-- class="org.springframework.jdbc.datasource.DataSourceTransactionManager"> -->
+	<!-- <qualifier value="txManager2" /> -->
+	<!-- <property name="dataSource" ref="dataSource2" /> -->
+	<!-- </bean> -->
 
 </beans>
 
