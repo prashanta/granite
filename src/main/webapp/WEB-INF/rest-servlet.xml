@@ -41,15 +41,13 @@
 	<bean id="testDAO" class="com.gemt.granite.dev.db.TestDAO" />
 
 
-
-
 	<bean id="dataSource1"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.progress.sql.jdbc.JdbcProgressDriver" />
 		<!-- ...74.20 main server ...74.235 clone server ...74.204 cloned virtual 
 			server -->
 		<property name="url"
-			value="jdbc:jdbcprogress:T:192.168.74.20:6100:mfgsys" />
+			value="jdbc:jdbcprogress:T:192.168.74.235:6100:mfgsys" />
 		<property name="username" value="sysprogress" />
 		<property name="password" value="aprilfools" />
 	</bean>
@@ -66,7 +64,7 @@
 
 	<tx:annotation-driven />
 
-	<bean id="txManager1"
+	<bean id="txManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<qualifier value="txManager" />
 		<property name="dataSource" ref="dataSource1" />

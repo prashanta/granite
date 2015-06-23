@@ -25,20 +25,16 @@ public class InfoRadiatorService {
 	@Autowired
 	WorkCenterDao workCenterDao;
 	
-	
-	@Transactional(readOnly=true, isolation=Isolation.READ_UNCOMMITTED)
 	public List<MTLXCUTOperBean> getMTLXCutOperations() throws Exception{
 		List<MTLXCUTOperBean> stdOperations = mtlxWorkCellDao.getMTLXCutOperations();
 		return stdOperations;
 	}
 	
-	@Transactional(readOnly=true, isolation=Isolation.READ_UNCOMMITTED)
 	public List<MTLXCUTOperBean> getMTLNCutOperations() throws Exception{
 		List<MTLXCUTOperBean> nonStdOperations = mtlxWorkCellDao.getMTLNCutOperations();
 		return nonStdOperations;
 	}
 	
-	@Transactional(readOnly=true, isolation=Isolation.READ_UNCOMMITTED)
 	public List<CUTActiveOperBean> getActiveCutOperations() throws Exception{	
 		List<CUTActiveOperBean> activeOperations = new ArrayList<CUTActiveOperBean>();
 		

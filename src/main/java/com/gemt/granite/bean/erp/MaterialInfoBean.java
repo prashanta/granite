@@ -9,7 +9,6 @@ public class MaterialInfoBean {
 	String mtlPartNum;
 	boolean pullAsAsm;
 	boolean viewAsAsm;
-	String revisionNum;
 	float qtyPer;
 	String partDescription;
 	String partClass;
@@ -46,14 +45,6 @@ public class MaterialInfoBean {
 
 	public void setViewAsAsm(boolean viewAsAsm) {
 		this.viewAsAsm = viewAsAsm;
-	}
-
-	public String getRevisionNum() {
-		return revisionNum;
-	}
-
-	public void setRevisionNum(String revisionNum) {
-		this.revisionNum = revisionNum;
 	}
 
 	public float getQtyPer() {

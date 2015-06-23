@@ -76,7 +76,11 @@
 			<version>4.1.6.RELEASE</version>
 		</dependency>
 
-
+		<dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>ojdbc6</artifactId>
+			<version>11.2.0.3</version>
+		</dependency>
 
 		<!-- <dependency> <groupId>mysql</groupId> <artifactId>mysql-connector-java</artifactId> 
 			<version>5.1.26</version> </dependency> -->
@@ -85,7 +89,14 @@
 			<version>0.8.2</version> </dependency> -->
 
 	</dependencies>
-
+	
+	<repositories>
+		<repository>	<!-- codelds repo for OJDBC -->
+			<id>codelds</id>
+			<url>https://code.lds.org/nexus/content/groups/main-repo</url>
+		</repository>
+	</repositories>
+	
 	<build>
 		<finalName>granite</finalName>
 		<plugins>
@@ -118,7 +129,7 @@
 				<configuration>
 					<url>http://192.168.74.250/manager/text</url>
 					<server>TomcatServer</server>
-					<path>/granite</path>
+					<path>/granite-test</path>
 				</configuration>
 			</plugin>
 		</plugins>

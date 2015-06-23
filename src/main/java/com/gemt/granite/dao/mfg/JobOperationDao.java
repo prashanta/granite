@@ -14,19 +14,17 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.annotation.Isolation;
 
 import com.gemt.granite.bean.mfg.JobOperationBean;
 import com.gemt.granite.bean.mfg.OperationLaborBean;
-import com.gemt.granite.exception.RestError;
 import com.gemt.granite.exception.GraniteRestException;
+import com.gemt.granite.exception.RestError;
 
 /**
  * @author Prashanta.s
  *
  */
-@Transactional(isolation=Isolation.READ_UNCOMMITTED)
+
 @Repository
 public class JobOperationDao {
 		
