@@ -46,16 +46,27 @@ public class InfoRadiatorService {
 		stdLabors.addAll(nonStdLabors);
 		
 		Iterator<OperationLaborBean> itr = stdLabors.iterator();
-		
+		System.out.println(">> 0");
+		// For all std and non-std operations
 		while(itr.hasNext()){
+			try{
 			CUTActiveOperBean activeOper = new CUTActiveOperBean();
 			activeOper.setLabor(itr.next());
+			// Get cut operation detail for job number
 			MTLXCUTOperBean cutOper = mtlxWorkCellDao.getCutOperDetail(activeOper.getLabor().getJobNum()); 
 			activeOper.setOper(cutOper);
+			// Get next work cell
 			String nextWC = workCenterDao.getNextWorkCell(activeOper.getOper().getJobNum(), activeOper.getOper().getOperSeq());
+			// Set next work cell
 			activeOper.getOper().setNextWorkCenter(nextWC);
 			activeOperations.add(activeOper);
+			}
+			catch(Exception e)
+			{
+				break;
+			}
 		}		
+		System.out.println(">> 1");
 		return activeOperations;
 	}
 }
