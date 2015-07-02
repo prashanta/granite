@@ -57,7 +57,6 @@ public class MaterialDao {
 		String sql =	
 				beanMapSQL +
 				"FROM pub.PartMtl where PartNum = ? AND RevisionNum = ? ";
-		System.out.println(">> rev num: '" + revNum + "'");
 		try{
 			log.info("Retriving materials for part number: " + partNum);
 			RowMapper<MaterialBean> rm = BeanPropertyRowMapper.newInstance(MaterialBean.class);

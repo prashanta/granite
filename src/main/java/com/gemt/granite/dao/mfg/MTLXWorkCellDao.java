@@ -1,6 +1,6 @@
 package com.gemt.granite.dao.mfg;
 
-import javax.sql.DataSource; 
+import javax.sql.DataSource;
 
 import java.util.List;
 
@@ -85,7 +85,7 @@ public class MTLXWorkCellDao {
 				operation = jdbcTemplate.queryForObject(sql,
 						new Object[] { jobNum }, rm);
 			} catch (Exception e) {
-//				e.printStackTrace();
+				// e.printStackTrace();
 				return null;
 			}
 			return operation;
@@ -134,6 +134,7 @@ public class MTLXWorkCellDao {
 				// Get FIRM JOBS only
 				"AND JobOper.JobNum NOT LIKE 'amrp%' "
 				+ "Order by JobOper.DueDate ";
+		System.out.println(sql);
 		try {
 			RowMapper<MTLXCUTOperBean> rm = BeanPropertyRowMapper
 					.newInstance(MTLXCUTOperBean.class);

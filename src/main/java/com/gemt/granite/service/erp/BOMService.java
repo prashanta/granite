@@ -49,7 +49,7 @@ public class BOMService {
 				}
 				catch(Exception e)
 				{
-					System.out.println("NO CHILd... in " + partNo);
+					System.out.println("NO CHILD parts in " + partNo);
 				}
 				finally{
 					if ( children != null && children.size() > 0) {
@@ -59,25 +59,19 @@ public class BOMService {
 					}
 				}
 				
-				
 			} else { // condition if no child
-
 				if (mtlMap.containsKey(mtl.getMtlPartNum())) { // if part exists
 																// in map update
 																// the part
-
 					MaterialInfoBean tempBeam = mtlMap.get(mtl.getMtlPartNum());
 					float tmpCount = tempBeam.getQtyPer();
 					tempBeam.setQtyPer(tmpCount + (mtl.getQtyPer() * n));
 					mtlMap.put(mtl.getMtlPartNum(), tempBeam);
-
 				} else { // if part does not exist in map just add it into the
 							// parent map
-
 					currentBean.setQtyPer(mtl.getQtyPer() * n);
 					mtlMap.put(mtl.getMtlPartNum(),
 							setFlatBomBean(mtl, currentBean));
-
 				}
 			}
 		}
