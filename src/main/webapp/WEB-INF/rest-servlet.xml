@@ -41,7 +41,7 @@
 	<bean id="testDAO" class="com.gemt.granite.dev.db.TestDAO" />
 
 
-	<bean id="dataSource3"
+	<bean id="dataSource1"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.progress.sql.jdbc.JdbcProgressDriver" />
 		<!-- ...74.20 main server ...74.235 clone server ...74.204 cloned virtual 
@@ -63,7 +63,7 @@
 	</bean>
 
 	<!-- Third data source to connect using ODBC -->
-	<bean id="dataSource1"
+	<bean id="dataSource3"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="sun.jdbc.odbc.JdbcOdbcDriver" />
 		<property name="url" value="jdbc:odbc:ProgressReadOnly" />
