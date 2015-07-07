@@ -37,10 +37,10 @@ public class BOMService {
 			if (mtl.isPullAsAsm() && mtl.isViewAsAsm()
 					&& mtl.getMtlPartNum() != null) { // condition if child exists
 				
-				MaterialInfoBean childBean = new MaterialInfoBean();
-				partNo = mtl.getMtlPartNum();
-				childBean.setQtyPer(mtl.getQtyPer());
-				mtlMap.put(partNo, setFlatBomBean(mtl, childBean));
+		
+				partNo = mtl.getMtlPartNum();  // partNo has view and pull as yes and yes and should not appear in flatBOM
+				float qty=mtl.getQtyPer();		// qty notes partNo quantity
+			
 				List<MaterialInfoBean> children = null;
 				try{
 				 children = ms
@@ -54,7 +54,7 @@ public class BOMService {
 				finally{
 					if ( children != null && children.size() > 0) {
 						childMap = bomService.qtyCount(children,
-								mtl.getQtyPer(), ms); // recursive call
+								qty, ms); // recursive call
 						compareMap(mtlMap, childMap);
 					}
 				}
@@ -110,3 +110,4 @@ public class BOMService {
 		return flatBomBean;
 	}
 }
+
