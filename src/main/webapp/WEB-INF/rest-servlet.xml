@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
@@ -81,3 +82,96 @@
 
 </beans>
 
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.0.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd">
+	<context:component-scan base-package="com.gemt.granite." />
+
+	<mvc:annotation-driven />
+
+	<mvc:interceptors>
+		<bean class="com.gemt.granite.monitor.Monitor" />
+	</mvc:interceptors>
+
+
+	<bean id="partDao" class="com.gemt.granite.dao.erp.PartDao" />
+	<bean id="partService" class="com.gemt.granite.service.erp.PartService" />
+
+	<bean id="workCenterDao" class="com.gemt.granite.dao.mfg.WorkCenterDao" />
+
+	<bean id="workCenterService" class="com.gemt.granite.service.mfg.WorkCenterService" />
+
+	<bean id="jobOperationDao" class="com.gemt.granite.dao.mfg.JobOperationDao" />
+	<bean id="jobOperationService" class="com.gemt.granite.service.mfg.JobOperationService" />
+
+	<bean id="materialDao" class="com.gemt.granite.dao.erp.MaterialDao" />
+	<bean id="materialService" class="com.gemt.granite.service.erp.MaterialService" />
+
+	<bean id="mtlxWorkCellDao" class="com.gemt.granite.dao.mfg.MTLXWorkCellDao" />
+	<bean id="infoRadiatorService" class="com.gemt.granite.service.mfg.InfoRadiatorService" />
+
+	<!-- Test DAOs -->
+	<bean id="testDAO" class="com.gemt.granite.dev.db.TestDAO" />
+
+
+	<bean id="dataSource1"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.progress.sql.jdbc.JdbcProgressDriver" />
+		<!-- ...74.20 main server ...74.235 clone server ...74.204 cloned virtual 
+			server -->
+		<property name="url"
+			value="jdbc:jdbcprogress:T:192.168.74.20:6100:mfgsys" />
+		<property name="username" value="sysprogress" />
+		<property name="password" value="aprilfools" />
+	</bean>
+
+	<!-- Example of Second Database using PostgrSQL -->
+	<bean id="dataSource2"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="org.postgresql.Driver" />
+		<property name="url"
+			value="jdbc:postgresql://localhost:5432/clone_mfgsys" />
+		<property name="username" value="postgres" />
+		<property name="password" value="potato" />
+	</bean>
+
+	<!-- Third data source to connect using ODBC -->
+	<bean id="dataSource3"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="sun.jdbc.odbc.JdbcOdbcDriver" />
+		<property name="url" value="jdbc:odbc:ProgressReadOnly" />
+		<property name="username" value="sysprogress" />
+		<property name="password" value="aprilfools" />
+	</bean>
+
+
+<!-- 	<tx:annotation-driven /> -->
+
+<!-- 	<bean id="txManager" -->
+<!-- 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager"> -->
+<!-- 		<qualifier value="txManager" /> -->
+<!-- 		<property name="dataSource" ref="dataSource1" /> -->
+<!-- 	</bean> -->
+
+	<!-- Second Database PostgrSQL -->
+	<!-- <bean id="txManager2" -->
+	<!-- class="org.springframework.jdbc.datasource.DataSourceTransactionManager"> -->
+	<!-- <qualifier value="txManager2" /> -->
+	<!-- <property name="dataSource" ref="dataSource2" /> -->
+	<!-- </bean> -->
+
+</beans>
+
+>>>>>>> devC

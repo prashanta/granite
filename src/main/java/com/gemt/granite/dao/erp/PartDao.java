@@ -15,15 +15,13 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.annotation.Isolation;
 
 import com.gemt.granite.bean.erp.PartBean;
 import com.gemt.granite.bean.erp.PartBinBean;
 import com.gemt.granite.bean.erp.PartPlantBean;
 import com.gemt.granite.bean.erp.PartRevBean;
-import com.gemt.granite.exception.RestError;
 import com.gemt.granite.exception.GraniteRestException;
+import com.gemt.granite.exception.RestError;
 
 @Repository
 public class PartDao {
