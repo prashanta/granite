@@ -2,7 +2,7 @@
 
 A REST Service for Vantage ERP.
 
-##INSTALL NOTE: 
+##INSTALL NOTE:
 **Make sure Java Runtime is set to JRE7 in Eclipse, JAVA_HOME and Tomcat. And**
 
 **1. Include following jars in classpath (or C:\Program Files (x86)\Apache Software Foundation\Tomcat 7.0\lib):**
@@ -21,31 +21,33 @@ A REST Service for Vantage ERP.
 
 **granite/api/part/info/{partnum}**
 Returns basic part information of given "partnum"
-	
+
 **granite/api/part/detail/{partnum}**
 Returns detail part information of given "partnum"
-	
+
 **granite/api/part/rev/{partnum}**
-Returns part revisions of given "partnum"	
-	
+Returns part revisions of given "partnum"
+
 **granite/api/part//approvedrev/{partnum}**
-Returns approved revision of given "partnum" 
-	
+Returns approved revision of given "partnum"
+
 **granite/api/part//bin/{partnum}**
-Returns primary bin number of given "partnum" 
+Returns primary bin number of given "partnum"
 
 **granite/api/part/search/{partnum}**
-Search for part numbers containing text "partnum" 
-	
+Search for part numbers containing text "partnum"
+
 **granite/api/part/searchbydesc/{description}**
-Search for part desctiption containing text "description" 
+Search for part desctiption containing text "description"
 
 **granite/api/part//class/{class}**
 Search for class containing text "class"
 
-	
+
 **granite/api/part/plant/{partnum}**
 Returns plate related information for given "partnum". E.g:
+
+
 
 REST: http://192.168.74.250/granite/api/part/plant/7188
 RESULT:
@@ -97,7 +99,7 @@ RESULT:
 	}
 ]
 ```
-	
+
 **granite/api/mtl//{partnum}**
 Returns child parts of approved revision of given parent "partnum".
 
@@ -142,3 +144,6 @@ RESULT:
 
 **granite/api/mtl/detail/{partnum}**
 Returns child parts with detail information of approved revision of given parent "partnum" and "revnum".
+
+**/granite/api/mtl/flatBOM/{partnum}**
+Returns all the child parts with total quantity as a flat BOM

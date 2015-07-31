@@ -7,23 +7,18 @@ import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.TransactionDefinition;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import com.gemt.granite.bean.erp.MaterialBean;
 import com.gemt.granite.bean.erp.MaterialDetailBean;
-import com.gemt.granite.exception.RestError;
+import com.gemt.granite.bean.erp.MaterialInfoBean;
 import com.gemt.granite.exception.GraniteRestException;
-import com.sun.corba.se.pept.transport.Connection;
+import com.gemt.granite.exception.RestError;
 
 @Repository
 public class MaterialDao {
@@ -31,12 +26,14 @@ public class MaterialDao {
 	private JdbcTemplate jdbcTemplate;
 	 
 	@Autowired
+	@Qualifier("dataSource1")
     public void setDataSource(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 	
-	@Autowired
-	DataSourceTransactionManager txManager;
+//	@Autowired
+//	@Qualifier("txManager1")
+//	DataSourceTransactionManager txManager;
 
 	static Logger log = Logger.getLogger(MaterialDao.class);
 	
@@ -60,7 +57,7 @@ public class MaterialDao {
 		String sql =	
 				beanMapSQL +
 				"FROM pub.PartMtl where PartNum = ? AND RevisionNum = ? ";
-		
+		System.out.println(">> rev num: '" + revNum + "'");
 		try{
 			log.info("Retriving materials for part number: " + partNum);
 			RowMapper<MaterialBean> rm = BeanPropertyRowMapper.newInstance(MaterialBean.class);
@@ -75,7 +72,7 @@ public class MaterialDao {
 		}
 	}
 	
-	@Transactional(isolation=Isolation.READ_COMMITTED)
+//	@Transactional(isolation=Isolation.READ_COMMITTED)
 	public List<MaterialDetailBean> getMaterialDetails(String partNum, String revNum) throws Exception{
 		String sql =	
 				  "SELECT "
@@ -123,10 +120,10 @@ public class MaterialDao {
 				+ "ORDER BY PartMtl.MtlSeq ";
 		
 		// An attempt to change isolation level
-		DefaultTransactionDefinition def = new DefaultTransactionDefinition();
-	    def.setIsolationLevel(TransactionDefinition.ISOLATION_READ_UNCOMMITTED);
+//		DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+//	    def.setIsolationLevel(TransactionDefinition.ISOLATION_READ_UNCOMMITTED);
 
-	    TransactionStatus status = txManager.getTransaction(def);	    
+//	    TransactionStatus status = txManager.getTransaction(def);	    
 	    
 		try{
 			log.info("Retriving materials with detail info for part number: " + partNum);			
@@ -167,5 +164,56 @@ public class MaterialDao {
 			ex.printStackTrace();
 			throw new GraniteRestException(RestError.APP_SERVER_ERROR, ex);
 		}
-	}	
+	}
+	
+	public List<MaterialInfoBean> getMaterialInfo(String partNum, String revNum)
+			throws Exception {
+
+		String sql = "SELECT "
+				+ "PartMtl.PartNum as partNum, "
+				+ "PartMtl.MtlSeq as mtlSeq, "
+				+ "PartMtl.QtyPer as qtyPer, "
+				+ "PartMtl.MtlPartNum as mtlPartNum, "
+				+ "PartMtl.PullAsAsm as pullAsAsm, "
+				+ "PartMtl.ViewAsAsm as viewAsAsm, "
+
+				+ "Part.PartDescription as partDescription, "
+				+ "Part.Class as partClass, "
+				+ "Part.IUM as invUM, "
+				+ "Part.TypeCode as partType, "
+
+				+ "PartRev.RevisionNum as revisionNum, "
+				+ "PartRev.EffectiveDate as revisionEffectiveDate "
+
+				+ "FROM pub.PartMtl "
+				+ "LEFT JOIN pub.Part ON Part.PartNum = PartMtl.MtlPartNum "
+				+ "LEFT JOIN pub.PartRev ON PartRev.PartNum = PartMtl.MtlPartNum AND PartRev.Approved = 1 "
+			
+				+ "WHERE PartMtl.PartNum = ? AND PartMtl.RevisionNum = ? "
+				+ "ORDER BY PartMtl.MtlSeq ";
+
+		try {
+			log.info("Retriving materials info for part number: "
+					+ partNum);
+
+			RowMapper<MaterialInfoBean> rm = BeanPropertyRowMapper
+					.newInstance(MaterialInfoBean.class);
+			List<MaterialInfoBean> materials = jdbcTemplate.query(sql,
+					new Object[] { partNum, revNum }, rm);
+
+			if (materials.isEmpty())
+				throw new GraniteRestException(RestError.MATERIALS_NOT_FOUND);
+			return materials;
+		} catch (CannotGetJdbcConnectionException ex) {
+			ex.printStackTrace();
+			throw new GraniteRestException(RestError.NO_DATABASE_CONNECTION, ex);
+		} catch (GraniteRestException ex) {
+			ex.printStackTrace();
+			throw ex;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw new GraniteRestException(RestError.APP_SERVER_ERROR, ex);
+		}
+	}
+
 }

@@ -1,18 +1,24 @@
 package com.gemt.granite.rest.erp;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gemt.granite.bean.erp.MaterialBean;
 import com.gemt.granite.bean.erp.MaterialDetailBean;
+import com.gemt.granite.bean.erp.MaterialInfoBean;
 import com.gemt.granite.bean.error.ErrorMessage;
+import com.gemt.granite.service.erp.BOMService;
 import com.gemt.granite.service.erp.MaterialService;
 
 /**
@@ -54,5 +60,22 @@ public class Material {
 		msg.setCode(0);
 		msg.setMessage("No end point found.");
 		return msg;
+	}
+	
+	@RequestMapping(value = "/flatBOM/{partNum}", method = RequestMethod.GET)
+	public ResponseEntity<List<MaterialInfoBean>> getFlatBOM(
+			@PathVariable(value = "partNum") String partNum) throws Exception {
+
+
+		BOMService bomService = new BOMService();
+		List<MaterialInfoBean> beans = materialService
+				.getMaterialInfo(partNum);
+		Map<String, MaterialInfoBean> m = bomService.qtyCount(beans, 1,
+				materialService);
+
+		List<MaterialInfoBean> flatBOMs = new ArrayList<MaterialInfoBean>(m.values());
+
+		return new ResponseEntity<List<MaterialInfoBean>>(flatBOMs, HttpStatus.OK);
+
 	}
 }
