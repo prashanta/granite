@@ -37,9 +37,9 @@
 	<bean id="mtlxWorkCellDao" class="com.gemt.granite.dao.mfg.MTLXWorkCellDao" />
 	<bean id="infoRadiatorService" class="com.gemt.granite.service.mfg.InfoRadiatorService" />
 	
-	<!-- Test DAOs -->
+	<!-- Test DAOs 
 	<bean id="testDAO" class="com.gemt.granite.dev.db.TestDAO" />
-
+	-->
 
 
 
