@@ -7,10 +7,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-<<<<<<< HEAD
-=======
 import org.springframework.dao.EmptyResultDataAccessException;
->>>>>>> devC
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -33,21 +30,13 @@ public class MTLXWorkCellDao {
 
 	@Autowired
 	@Qualifier("dataSource1")
-<<<<<<< HEAD
-    public void setDataSource(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);        
-    }
-	
-	static Logger log = Logger.getLogger(MTLXWorkCellDao.class);		
-		
-=======
+
 	public void setDataSource(DataSource dataSource) {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
 	static Logger log = Logger.getLogger(MTLXWorkCellDao.class);
 
->>>>>>> devC
 	/**
 	 * Get CUT operation detail for given job number
 	 * 

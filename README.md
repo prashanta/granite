@@ -1,8 +1,21 @@
-# README #
+**Granite** is a REST Service for Vantage ERP. Currently used by MEX and Radiator.
 
-A REST Service for Vantage ERP.
+* * *
+###RELEASE NOTES:
 
-##INSTALL NOTE:
+**Version: 0.4**
+- REST API for generating Flat BOM used by MEX
+
+**Version: 0.3**
+- Just some clean ups
+
+**Version: 0.2**
+- Added REST APIs used by Radiator
+
+* * *
+
+###INSTALLATION NOTES:
+
 **Make sure Java Runtime is set to JRE7 in Eclipse, JAVA_HOME and Tomcat. And**
 
 **1. Include following jars in classpath (or C:\Program Files (x86)\Apache Software Foundation\Tomcat 7.0\lib):**
@@ -17,7 +30,12 @@ A REST Service for Vantage ERP.
 
 •	procli92.dll
 
-##PACKAGE: com.gemt.granite.rest.erp.Part
+* * *
+
+### REST APIs:
+(In the future, APIs need to be documented by something like [swagger.io](http://swagger.io/)).
+
+#### PACKAGE: com.gemt.granite.rest.erp.Part
 
 **granite/api/part/info/{partnum}**
 Returns basic part information of given "partnum"
@@ -61,7 +79,7 @@ RESULT:
 ```
 ---
 
-##PACKAGE: com.gemt.granite.rest.erp.Material
+#### PACKAGE: com.gemt.granite.rest.erp.Material
 
 **granite/api/mtl/{partnum}/{revnum}**
 Returns child parts of given parent "partnum" and "revnum". E.g.:
