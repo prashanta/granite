@@ -63,13 +63,15 @@ public class JobOperationDao {
 				"JobOper.WCCode = ? AND " + 
 				"JobOper.OpCode = ? AND " +
 				"JobOper.ProdComplete = 0 AND " + 
-				"JobOper.JobComplete = 0 " + 
+				"JobOper.JobComplete = 0 AND " +
+				"JobOper.JobNum NOT LIKE 'amrp%' " + 
 				"ORDER BY JobOper.StartDate ";
 		try{
+			System.out.println(sql);
 			RowMapper<JobOperationBean> rm = BeanPropertyRowMapper.newInstance(JobOperationBean.class);
 			List<JobOperationBean> jobOperations = jdbcTemplate.query(sql, new Object[]{wcCode, opCode}, rm);		
 			if(jobOperations.isEmpty())
-				throw new GraniteRestException(RestError.JOB_OPS_NOT_FOUND);
+				throw new GraniteRestException(RestError.JOB_OPS_NOT_FOUND);						
 			return jobOperations;
 		}		
 		catch(CannotGetJdbcConnectionException ex){

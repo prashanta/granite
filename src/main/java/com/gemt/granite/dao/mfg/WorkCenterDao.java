@@ -23,6 +23,8 @@ import com.gemt.granite.exception.GraniteRestException;
 import com.gemt.granite.exception.RestError;
 
 /**
+ * Work Center related functions.
+ * 
  * @author Prashanta.s
  *
  */

@@ -53,22 +53,21 @@ public class MTLXWorkCellDao {
 				+ "JobOper.RunQty as productionQty, "
 				+ "JobOper.OprSeq as operSeq, "
 				+ "JobOper.EstProdHours as estProdHours, "
-				+
+				
 				// Get part number of first assembly sequence - 1
-				"JobAsmbl.PartNum as subAsmPartNum, "
-				+
+				+ "JobAsmbl.PartNum as subAsmPartNum, "
+				
 				// Get material for the parent assembly part
-				"PartMtl.MtlPartNum as subAsmMtlPartNum, "
+				+ "PartMtl.MtlPartNum as subAsmMtlPartNum, "
 				+ "PartMtl.QtyPer as subAsmMtlQty ,"
 				+ "Part.IUM as subAsmMtlUOM, "
-				+
+				
 				// Get first material - 10
-				"JobMtl.PartNum as mtlPartNum, "
+				+ "JobMtl.PartNum as mtlPartNum, "
 				+ "JobMtl.QtyPer as mtlQty, "
 				+ "JobMtl.IUM as mtlUOM "
-				+
-
-				"FROM pub.JobOper "
+				
+				+ "FROM pub.JobOper "
 				+ "LEFT JOIN pub.JobAsmbl ON JobAsmbl.JobNum = JobOper.JobNum AND JobAsmbl.AssemblySeq = 1 "
 				+ "LEFT JOIN pub.PartMtl ON PartMtl.PartNum = JobAsmbl.PartNum AND PartMtl.MtlSeq = 10 "
 				+ "LEFT JOIN pub.Part ON Part.PartNum = PartMtl.PartNum "
@@ -79,12 +78,10 @@ public class MTLXWorkCellDao {
 		try {
 			log.info("Fetching CUT operations from MTLX workcell for job - "
 					+ jobNum);
-			RowMapper<MTLXCUTOperBean> rm = BeanPropertyRowMapper
-					.newInstance(MTLXCUTOperBean.class);
+			RowMapper<MTLXCUTOperBean> rm = BeanPropertyRowMapper.newInstance(MTLXCUTOperBean.class);
 			MTLXCUTOperBean operation = null;
 			try {
-				operation = jdbcTemplate.queryForObject(sql,
-						new Object[] { jobNum }, rm);
+				operation = jdbcTemplate.queryForObject(sql, new Object[] { jobNum }, rm);
 			} catch (Exception e) {
 				// e.printStackTrace();
 				return null;
@@ -168,25 +165,24 @@ public class MTLXWorkCellDao {
 	public List<MTLXCUTOperBean> getMTLNCutOperations()
 			throws GraniteRestException {
 		String sql = // Get Job details
-		"SELECT "
+				  "SELECT "
 				+ "JobOper.JobNum AS jobNum, "
 				+ "JobOper.StartDate AS startDate, "
 				+ "JobOper.DueDate AS dueDate, "
 				+ "JobOper.RunQty as productionQty, "
 				+ "JobOper.OprSeq as operSeq, "
-				+
+				
 				// Get first material - 10
-				"JobMtl.PartNum as mtlPartNum, "
+				+ "JobMtl.PartNum as mtlPartNum, "
 				+ "JobMtl.QtyPer as mtlQty, "
-				+ "JobMtl.IUM as mtlUOM "
-				+
+				+ "JobMtl.IUM as mtlUOM "				
 
-				"FROM pub.JobOper "
+				+ "FROM pub.JobOper "
 				+ "JOIN pub.JobMtl on JobMtl.JobNum = JobOper.JobNum AND JobMtl.AssemblySeq = 0 AND JobMtl.MtlSeq = 10 "
 				+ "WHERE JobOper.WCCode = 'MTLN' AND JobOper.OpCode = 'CUT' AND JobOper.ProdComplete = 0 AND JobOper.JobComplete = 0 "
-				+
+				
 				// Get FIRM JOBS only
-				"AND JobOper.JobNum NOT LIKE 'amrp%' "
+				+ "AND JobOper.JobNum NOT LIKE 'amrp%' "
 				+ "ORDER BY JobOper.DueDate ";
 		try {
 			RowMapper<MTLXCUTOperBean> rm = BeanPropertyRowMapper
