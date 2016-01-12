@@ -15,20 +15,24 @@
 * * *
 
 ###INSTALLATION NOTES:
+
 Required:
+
 1. Tomcat 7.0 (32-bit)
-2. JDK 7 Update 79 (32-bit)
+2. JDK 7 Update 79 (32-bit) 
 
 **Make sure Java Runtime is set to JRE7 in Eclipse, JAVA_HOME and Tomcat.**
 
 **1. Include following jars in classpath (or C:\Program Files (x86)\Apache Software Foundation\Tomcat 7.0\lib):**
 
 •	jdbc.jar
+
 •	progress.jar
 
 **2. Include the following dlls in PATH (C:\Program Files (x86)\Java\jre7\bin):**
 
 •	JdbcProgress.dll
+
 •	procli92.dll
 
 * * *
