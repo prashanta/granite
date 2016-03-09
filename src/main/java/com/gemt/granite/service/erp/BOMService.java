@@ -23,7 +23,7 @@ import com.gemt.granite.bean.erp.MaterialInfoBean;
 
 public class BOMService {
 
-	public Map<String, MaterialInfoBean> qtyCount(List<MaterialInfoBean> mtlList,
+	public Map<String, MaterialInfoBean> qtyCount(List<MaterialInfoBean> mtlList, 
 			float n, MaterialService ms) throws Exception {
 
 		Map<String, MaterialInfoBean> mtlMap = new HashMap<String, MaterialInfoBean>();
@@ -32,10 +32,10 @@ public class BOMService {
 		String partNo;
 		BOMService bomService = new BOMService();
 
-		for (MaterialInfoBean mtl : mtlList) {
+		for (MaterialInfoBean mtl : mtlList) 
+		{
 			MaterialInfoBean currentBean = new MaterialInfoBean();
-			if (mtl.isPullAsAsm() && mtl.isViewAsAsm()
-					&& mtl.getMtlPartNum() != null) { // condition if child exists
+			if (mtl.isPullAsAsm() && mtl.isViewAsAsm() && mtl.getMtlPartNum() != null) { // condition if child exists
 				
 		
 				partNo = mtl.getMtlPartNum();  // partNo has view and pull as yes and yes and should not appear in flatBOM
@@ -43,8 +43,7 @@ public class BOMService {
 			
 				List<MaterialInfoBean> children = null;
 				try{
-				 children = ms
-						.getMaterialInfo(partNo); // retrieve child parts of
+				 children = ms.getMaterialInfo(partNo); // retrieve child parts of
 				// a child
 				}
 				catch(Exception e)
@@ -53,8 +52,7 @@ public class BOMService {
 				}
 				finally{
 					if ( children != null && children.size() > 0) {
-						childMap = bomService.qtyCount(children,
-								qty, ms); // recursive call
+						childMap = bomService.qtyCount(children,qty, ms); // recursive call
 						compareMap(mtlMap, childMap);
 					}
 				}
@@ -70,8 +68,7 @@ public class BOMService {
 				} else { // if part does not exist in map just add it into the
 							// parent map
 					currentBean.setQtyPer(mtl.getQtyPer() * n);
-					mtlMap.put(mtl.getMtlPartNum(),
-							setFlatBomBean(mtl, currentBean));
+					mtlMap.put(mtl.getMtlPartNum(),setFlatBomBean(mtl, currentBean));
 				}
 			}
 		}

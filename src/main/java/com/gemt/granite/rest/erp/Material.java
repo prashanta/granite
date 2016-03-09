@@ -63,16 +63,11 @@ public class Material {
 	}
 	
 	@RequestMapping(value = "/flatBOM/{partNum}", method = RequestMethod.GET)
-	public ResponseEntity<List<MaterialInfoBean>> getFlatBOM(
-			@PathVariable(value = "partNum") String partNum) throws Exception {
-
+	public ResponseEntity<List<MaterialInfoBean>> getFlatBOM(@PathVariable(value = "partNum") String partNum) throws Exception {
 
 		BOMService bomService = new BOMService();
-		List<MaterialInfoBean> beans = materialService
-				.getMaterialInfo(partNum);
-		Map<String, MaterialInfoBean> m = bomService.qtyCount(beans, 1,
-				materialService);
-
+		List<MaterialInfoBean> beans = materialService.getMaterialInfo(partNum);
+		Map<String, MaterialInfoBean> m = bomService.qtyCount(beans, 1,materialService);
 		List<MaterialInfoBean> flatBOMs = new ArrayList<MaterialInfoBean>(m.values());
 		return new ResponseEntity<List<MaterialInfoBean>>(flatBOMs, HttpStatus.OK);
 	}

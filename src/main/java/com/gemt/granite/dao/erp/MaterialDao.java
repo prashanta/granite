@@ -135,7 +135,7 @@ public class MaterialDao {
 			System.out.println("TRANSACTION_REPEATABLE_READ: " + java.sql.Connection.TRANSACTION_REPEATABLE_READ);
 			System.out.println("TRANSACTION_SERIALIZABLE: " + java.sql.Connection.TRANSACTION_SERIALIZABLE);*/
 			
-			RowMapper<MaterialDetailBean> rm = BeanPropertyRowMapper.newInstance(MaterialDetailBean.class);
+			RowMapper<MaterialDetailBean> rm = BeanPropertyRowMapper.newInstance(MaterialDetailBean.class);		
 			List<MaterialDetailBean> materials = jdbcTemplate.query(sql, new Object[]{partNum, revNum}, rm);			
 			
 			// Trying to remove duplicates

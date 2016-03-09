@@ -31,13 +31,11 @@ public class MaterialService {
 	public List<MaterialDetailBean> getMaterialDetails(String partNum)
 			throws Exception {
 		PartRevBean partRev = partDao.getApprovedRevision(partNum);
-		return materialDao
-				.getMaterialDetails(partNum, partRev.getRevisionNum());
+		return materialDao.getMaterialDetails(partNum, partRev.getRevisionNum());
 	}
 
 	public List<MaterialDetailBean> getMaterialDetails(String partNum,
 			String revNum) throws Exception {
-		MaterialDao materialDao = new MaterialDao();
 		return materialDao.getMaterialDetails(partNum, revNum);
 	}
 
