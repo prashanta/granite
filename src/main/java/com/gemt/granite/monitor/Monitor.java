@@ -1,7 +1,5 @@
 package com.gemt.granite.monitor;
 
-import java.io.DataOutputStream;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -23,7 +21,7 @@ public class Monitor implements  HandlerInterceptor{
 		   ipAddress = request.getRemoteAddr();  
 		}
 		MDC.put("ip", ipAddress);
-		log.info("REQ: [" + request.getRequestURI() + "]");
+		log.debug("REQ: [" + request.getMethod() + " : "  + request.getRequestURI() + "]");
 		return true;
 	}
 
@@ -33,7 +31,7 @@ public class Monitor implements  HandlerInterceptor{
 		long endTime = System.currentTimeMillis();
 		long exeTime = endTime - startTime;
 		String strExeTime = exeTime > 1000? (exeTime/1000 + " secs") : (exeTime + " msec");
-		log.info("RES: [" + request.getRequestURI() + "] - Exe time: " + strExeTime);				
+		log.info("RES: [" + request.getMethod() + " : " + request.getRequestURI() + "] - Exe time: " + strExeTime);				
 	}
 	
 	@Override

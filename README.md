@@ -1,4 +1,4 @@
-**Granite** is a REST Service for Vantage ERP. Currently used by MEX and Radiator.
+**Granite** is a REST Service for Vantage ERP. Currently used by Radiator.
 
 * * *
 ###RELEASE NOTES:

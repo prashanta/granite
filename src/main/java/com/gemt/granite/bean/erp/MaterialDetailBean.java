@@ -8,6 +8,11 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 import com.gemt.granite.utility.JsonDateSerializer;
 
+/**
+ * Bean to store detail Part Material information
+ * 
+ * @author Prashanta.S
+ */
 @XmlRootElement
 public class MaterialDetailBean{
 	

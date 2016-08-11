@@ -2,6 +2,11 @@ package com.gemt.granite.bean.erp;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * Bean to store flat BOM information
+ * 
+ * @author Prashanta.S
+ */
 @XmlRootElement
 public class MaterialInfoBean {
 

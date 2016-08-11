@@ -2,15 +2,35 @@ package com.gemt.granite.bean.erp;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+
+
+/**
+ * Bean to store basic Part Material information
+ * 
+ * @author Prashanta.S
+ */
 @XmlRootElement
 public class MaterialBean {
 	
+	/** Parent part number */
 	String partNum;
+	
+	/** Parent part revision number */
 	String revisionNum;
-	int mtlSeq;
-	float qtyPer;
+	
+	/** Material part number*/
 	String mtlPartNum;
+	
+	/** Part Material sequence number */
+	int mtlSeq;
+	
+	/** Quantity of part material */
+	float qtyPer;
+	
+	/** Pulls as Assembly {true: Pull as Assembly, false: Pull as Material} */
 	boolean pullAsAsm;
+	
+	/** View as Assembly  {true: View as Assembly, false: View as Material} */
 	boolean viewAsAsm;
 	
 	public String getPartNum() {

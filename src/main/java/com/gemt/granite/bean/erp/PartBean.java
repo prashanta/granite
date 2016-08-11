@@ -2,6 +2,10 @@ package com.gemt.granite.bean.erp;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * 
+ * @author Prashanta.S
+ */
 @XmlRootElement
 public class PartBean {
 	
