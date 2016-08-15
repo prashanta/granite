@@ -135,7 +135,6 @@ public class MTLXWorkCellDao {
 				// Get FIRM JOBS only
 				"AND JobOper.JobNum NOT LIKE 'amrp%' "
 				+ "Order by JobOper.DueDate ";
-		System.out.println(sql);
 		try {
 			RowMapper<MTLXCUTOperBean> rm = BeanPropertyRowMapper
 					.newInstance(MTLXCUTOperBean.class);

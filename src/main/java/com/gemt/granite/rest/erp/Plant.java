@@ -1,6 +1,8 @@
 package com.gemt.granite.rest.erp;
 
 
+import java.sql.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -32,6 +34,14 @@ public class Plant {
 	@RequestMapping(value="/mrprun/{plant:.+}", produces=MediaType.APPLICATION_JSON_VALUE)
 	public MRPRunInfo getPlantMRPRunInfo(@PathVariable(value = "plant") String plant) throws Exception {
 		return plantService.getPlantMRPRunInfo(plant);
+	}
+	
+	@RequestMapping(value="/mrprun/test", produces=MediaType.APPLICATION_JSON_VALUE)
+	public MRPRunInfo getPlantMRPRunInfoTest() throws Exception {
+		MRPRunInfo m = new MRPRunInfo();
+		m.setMrpLastRunDate(new Date(3012,2,2));
+		m.setMrpLastRunTime(1221);
+		return m;
 	}
 
 	

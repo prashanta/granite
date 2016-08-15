@@ -1,7 +1,11 @@
-**Granite** is a REST Service for Vantage ERP. Currently used by Radiator.
+**Granite** is a REST Service for Vantage Epicore ERP.
 
-* * *
+
 ###RELEASE NOTES:
+
+**Version: 0.5**
+- REST API for getting last MRP run date and time
+- Granite is no longer used by MEX. 
 
 **Version: 0.4**
 - REST API for generating Flat BOM used by MEX
@@ -12,7 +16,6 @@
 **Version: 0.2**
 - Added REST APIs used by Radiator
 
-* * *
 
 ###INSTALLATION NOTES:
 
