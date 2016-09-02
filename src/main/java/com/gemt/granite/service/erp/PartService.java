@@ -64,4 +64,8 @@ public class PartService {
 	public PartPlantBean getPartPlantInfo(String partNum) throws Exception {
 		return partDao.getPartPlantInfo(partNum);
 	}
+	
+	public List<PartBean> getListOfActiveParts() throws Exception {
+		return partDao.getListOfParts(true);
+	}
 }

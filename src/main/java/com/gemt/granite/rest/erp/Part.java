@@ -77,6 +77,11 @@ public class Part {
 		return partService.getPartPlantInfo(partNum);
 	}
 	
+	@RequestMapping(value="/active", produces=MediaType.APPLICATION_JSON_VALUE)
+	public List<PartBean> getListOfActiveParts() throws Exception {
+		return partService.getListOfActiveParts();
+	}
+	
 	@RequestMapping(value="**", produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(value = HttpStatus.NOT_FOUND)
 	public ErrorMessage fallbackMethod(){

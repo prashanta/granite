@@ -8,6 +8,6 @@ public class WorkCenterNonExistentException extends GraniteRestException{
 	private static final long serialVersionUID = 1L;
 	
 	public WorkCenterNonExistentException(Exception ex){
-		super(RestError.PART_NONEXISTENT, ex.getMessage());		
+		super(RestError.PART_NOT_FOUND, ex.getMessage());		
 	}
 }

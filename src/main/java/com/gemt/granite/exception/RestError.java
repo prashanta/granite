@@ -2,21 +2,33 @@ package com.gemt.granite.exception;
 
 public enum RestError {
 		
-	NO_DATABASE_CONNECTION(1, "No database connection"),
+	DATA_NOT_FOUND(100, "Data not found"),
 	
-	PART_NONEXISTENT(101, "Part does not exist"),
-
-	PARTS_NOT_FOUND(102, "Parts not found in search"),
+	PART_NOT_FOUND(101, "Part not found"),
 	
 	PART_REVISION_NOT_FOUND(103, "Part revision not found"),
 	
-	PART_REVISION_APPROVED_EXCESS(113, "Found more than one approved revisions"),
+	PART_REVISION_APPROVED_EXCESS(105, "Found more than one approved revisions"),
 	
-	PART_BIN_NOT_FOUND(104, "Part bin not found"),
+	PART_BIN_NOT_FOUND(106, "Part bin not found"),
 	
-	PART_PLANT_INFO_NOT_FOUND(105, "Part plant information not found"),
+	PART_PLANT_INFO_NOT_FOUND(107, "Part plant information not found"),
+	
+	JOB_NOT_FOUND(108, "Job not found"),
 	
 	MATERIALS_NOT_FOUND(201, "Child parts not found"),
+	
+	JOB_DEMANDS_NOT_FOUND(202, "Job demands not found"),
+		
+	JOB_SUPPLY_NOT_FOUND(203, "Supplies not found"),
+	
+	ORDER_DEMANDS_NOT_FOUND(204, "Sales order demands not found"),
+
+	PO_SUPPLY_NOT_FOUND(205, "POs not found"),
+
+	PARENTS_NOT_FOUND(206, "Parents not found"),
+	
+	PENDING_INSPECTION_NOT_FOUND(207, "Pending inspection not found"),
 	
 	WORK_CENTER_NONEXISTENT(501, "Work Center does not exist"),
 	
@@ -24,11 +36,7 @@ public enum RestError {
 	
 	JOB_OPS_NOT_FOUND(601, "Job opeartions not found"),
 	
-	ACTIVE_OPS_NOT_FOUND(602, "Active opeartions not found"),
-	
-	APP_SERVER_ERROR(-1, "Some error occured at application server"),
-	
-	BAD_SQL_ERROR(-2, "There is a bug in SQL statement. Find and burn that bug!!");
+	ACTIVE_OPS_NOT_FOUND(602, "Active opeartions not found");
 	
 	private final int code;
 

@@ -43,8 +43,7 @@ public class MTLXWorkCellDao {
 	 * @return
 	 * @throws Exception
 	 */
-	public MTLXCUTOperBean getCutOperDetail(String jobNum)
-			throws GraniteRestException {
+	public MTLXCUTOperBean getCutOperDetail(String jobNum) throws Exception {
 		String sql = // Get Job details
 		"SELECT "
 				+ "JobOper.JobNum AS jobNum, "
@@ -93,16 +92,8 @@ public class MTLXWorkCellDao {
 		} catch (CannotGetJdbcConnectionException ex) {
 			ex.printStackTrace();
 			log.error(ex.getMessage());
-			throw new GraniteRestException(RestError.NO_DATABASE_CONNECTION, ex);
-		} catch (BadSqlGrammarException ex) {
-			ex.printStackTrace();
-			log.error(ex.getMessage());
-			throw new GraniteRestException(RestError.BAD_SQL_ERROR, ex);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			log.error(ex.getMessage());
-			throw new GraniteRestException(RestError.APP_SERVER_ERROR, ex);
-		}
+			throw new Exception("NO_DATABASE_CONNECTION" + ex.getMessage());
+		} 
 	}
 
 	/**
@@ -112,8 +103,7 @@ public class MTLXWorkCellDao {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<MTLXCUTOperBean> getMTLXCutOperations()
-			throws GraniteRestException {
+	public List<MTLXCUTOperBean> getMTLXCutOperations() throws Exception {
 		String sql = // Get Job details
 		"SELECT "
 				+ "JobOper.JobNum AS jobNum, "
@@ -145,15 +135,7 @@ public class MTLXWorkCellDao {
 		} catch (CannotGetJdbcConnectionException ex) {
 			ex.printStackTrace();
 			log.error(ex.getMessage());
-			throw new GraniteRestException(RestError.NO_DATABASE_CONNECTION, ex);
-		} catch (BadSqlGrammarException ex) {
-			ex.printStackTrace();
-			log.error(ex.getMessage());
-			throw new GraniteRestException(RestError.BAD_SQL_ERROR, ex);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			log.error(ex.getMessage());
-			throw new GraniteRestException(RestError.APP_SERVER_ERROR, ex);
+			throw new Exception("NO_DATABASE_CONNECTION" + ex.getMessage());
 		}
 	}
 
@@ -164,8 +146,7 @@ public class MTLXWorkCellDao {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<MTLXCUTOperBean> getMTLNCutOperations()
-			throws GraniteRestException {
+	public List<MTLXCUTOperBean> getMTLNCutOperations() throws Exception {
 		String sql = // Get Job details
 		"SELECT "
 				+ "JobOper.JobNum AS jobNum, "
@@ -197,15 +178,7 @@ public class MTLXWorkCellDao {
 		} catch (CannotGetJdbcConnectionException ex) {
 			ex.printStackTrace();
 			log.error(ex.getMessage());
-			throw new GraniteRestException(RestError.NO_DATABASE_CONNECTION, ex);
-		} catch (BadSqlGrammarException ex) {
-			ex.printStackTrace();
-			log.error(ex.getMessage());
-			throw new GraniteRestException(RestError.BAD_SQL_ERROR, ex);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			log.error(ex.getMessage());
-			throw new GraniteRestException(RestError.APP_SERVER_ERROR, ex);
+			throw new Exception("NO_DATABASE_CONNECTION" + ex.getMessage());
 		}
 	}
 }

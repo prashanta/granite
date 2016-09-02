@@ -68,7 +68,7 @@ public class MaterialDao {
 		}		
 		catch(CannotGetJdbcConnectionException ex){
 			ex.printStackTrace();
-			throw new GraniteRestException(RestError.NO_DATABASE_CONNECTION, ex.getMessage());
+			throw new Exception("NO_DATABASE_CONNECTION" + ex.getMessage());
 		}
 	}
 	
@@ -154,16 +154,12 @@ public class MaterialDao {
 		}
 		catch(CannotGetJdbcConnectionException ex){
 			ex.printStackTrace();
-			throw new GraniteRestException(RestError.NO_DATABASE_CONNECTION, ex);
+			throw new Exception("NO_DATABASE_CONNECTION" + ex.getMessage());
 		}		
 		catch(GraniteRestException ex){
 			ex.printStackTrace();
 			throw ex;
-		}
-		catch(Exception ex){
-			ex.printStackTrace();
-			throw new GraniteRestException(RestError.APP_SERVER_ERROR, ex);
-		}
+		}		
 	}
 	
 	public List<MaterialInfoBean> getMaterialInfo(String partNum, String revNum)
@@ -206,13 +202,10 @@ public class MaterialDao {
 			return materials;
 		} catch (CannotGetJdbcConnectionException ex) {
 			ex.printStackTrace();
-			throw new GraniteRestException(RestError.NO_DATABASE_CONNECTION, ex);
+			throw new Exception("NO_DATABASE_CONNECTION" + ex.getMessage());
 		} catch (GraniteRestException ex) {
 			ex.printStackTrace();
 			throw ex;
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			throw new GraniteRestException(RestError.APP_SERVER_ERROR, ex);
 		}
 	}
 

@@ -58,14 +58,11 @@ public class PlantDao {
 		}
 		catch(EmptyResultDataAccessException ex){
 			ex.printStackTrace();
-			throw new GraniteRestException(RestError.PART_NONEXISTENT, ex);
+			throw new GraniteRestException(RestError.PART_NOT_FOUND, ex);
 		}
 		catch(CannotGetJdbcConnectionException ex){
 			ex.printStackTrace();
-			throw new GraniteRestException(RestError.NO_DATABASE_CONNECTION, ex);
-		}catch(Exception ex){
-			ex.printStackTrace();
-			throw new GraniteRestException(RestError.APP_SERVER_ERROR, ex);
+			throw new Exception("NO_DATABASE_CONNECTION" + ex.getMessage());
 		}
 	}
 }

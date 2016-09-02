@@ -74,7 +74,7 @@ public class JobOperationDao {
 		}		
 		catch(CannotGetJdbcConnectionException ex){
 			ex.printStackTrace();
-			throw new GraniteRestException(RestError.NO_DATABASE_CONNECTION, ex);
+			throw new Exception("NO_DATABASE_CONNECTION" + ex.getMessage());
 		}
 	}
 	
@@ -113,10 +113,7 @@ public class JobOperationDao {
 		}
 		catch(CannotGetJdbcConnectionException ex){
 			ex.printStackTrace();
-			throw new GraniteRestException(RestError.NO_DATABASE_CONNECTION, ex);
-		}catch(Exception ex){
-			ex.printStackTrace();
-			throw new GraniteRestException(RestError.APP_SERVER_ERROR, ex);
+			throw new Exception("NO_DATABASE_CONNECTION" + ex.getMessage());
 		}
 	}
 }

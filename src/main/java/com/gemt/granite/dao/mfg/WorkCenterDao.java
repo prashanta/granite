@@ -71,10 +71,7 @@ public class WorkCenterDao {
 		}		
 		catch(CannotGetJdbcConnectionException ex){
 			ex.printStackTrace();
-			throw new GraniteRestException(RestError.NO_DATABASE_CONNECTION, ex.getMessage());
-		}catch(Exception ex){
-			ex.printStackTrace();
-			throw new GraniteRestException(RestError.APP_SERVER_ERROR, ex);
+			throw new Exception("NO_DATABASE_CONNECTION" + ex.getMessage());
 		}
 	}
 	
@@ -101,10 +98,7 @@ public class WorkCenterDao {
 		}
 		catch(CannotGetJdbcConnectionException ex){
 			ex.printStackTrace();
-			throw new GraniteRestException(RestError.NO_DATABASE_CONNECTION, ex);
-		}catch(Exception ex){
-			ex.printStackTrace();
-			throw new GraniteRestException(RestError.APP_SERVER_ERROR, ex);
+			throw new Exception("NO_DATABASE_CONNECTION" + ex.getMessage());
 		}
 	}
 	
@@ -115,7 +109,7 @@ public class WorkCenterDao {
 	 * @return
 	 * @throws GraniteRestException
 	 */
-	public String getNextWorkCell(String jobNum, int operSeq) throws GraniteRestException{
+	public String getNextWorkCell(String jobNum, int operSeq) throws Exception{
 		String nextWC = null;
 		String sql =	
 						"SELECT " +
@@ -139,7 +133,7 @@ public class WorkCenterDao {
 		catch(Exception ex){
 			ex.printStackTrace();
 			log.error(ex.getMessage());
-			throw new GraniteRestException(RestError.APP_SERVER_ERROR, ex);
+			throw new Exception("NO_DATABASE_CONNECTION" + ex.getMessage());
 		}
 	}
 }
